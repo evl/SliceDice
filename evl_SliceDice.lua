@@ -79,6 +79,14 @@ function evl_SliceDice:UNIT_AURA(event, unit)
 	end
 end
 
+function evl_SliceDice:UNIT_ENTERED_VEHICLE(event, unit)
+	self:UNIT_AURA(event, "vehicle")
+end
+
+function evl_SliceDice:UNIT_EXITED_VEHICLE(event, unit)
+	self:UNIT_AURA(event, "vehicle")
+end
+
 function evl_SliceDice:PLAYER_TARGET_CHANGED(event)
 	for _, bar in ipairs(self.bars) do
 		local unit = bar.unit
@@ -136,7 +144,7 @@ function evl_SliceDice:ScanBar(bar, unit)
 				break
 			end
 			
-			if source == "player" and name == bar.spellName() then
+			if source == unit and name == bar.spellName() then
 				color = bar.colors[math.max(1, count)]
 			
 				bar:SetValue(expirationTime - GetTime())
@@ -224,6 +232,8 @@ evl_SliceDice:SetScript("OnEvent", onEvent)
 evl_SliceDice:SetScript("OnUpdate", onUpdate)
 
 evl_SliceDice:RegisterEvent("UNIT_AURA")
+evl_SliceDice:RegisterEvent("UNIT_ENTERED_VEHICLE")
+evl_SliceDice:RegisterEvent("UNIT_EXITED_VEHICLE")
 evl_SliceDice:RegisterEvent("PLAYER_TARGET_CHANGED")
 evl_SliceDice:RegisterEvent("PLAYER_ENTERING_WORLD")
 evl_SliceDice:RegisterEvent("PLAYER_ALIVE")

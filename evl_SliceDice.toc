@@ -7,3 +7,6 @@ evl_SliceDice.lua
 modules\druid.lua
 modules\rogue.lua
 modules\warrior.lua
+
+modules\joust.lua
+
