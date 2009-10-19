@@ -1,0 +1,9 @@
+## Interface: 30200
+## Title: Evl's Slice Dice
+## Author: Evl
+
+evl_SliceDice.lua
+
+modules\druid.lua
+modules\rogue.lua
+modules\warrior.lua
