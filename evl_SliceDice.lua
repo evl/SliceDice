@@ -123,20 +123,20 @@ function evl_SliceDice:UpdateBars(event, elapsed)
 	end
 end
 
-local name, count, expirationTime, isMine, auraFunction, color
+local name, count, expirationTime, source, auraFunction, color
 function evl_SliceDice:ScanBar(bar, unit)
 	if unit == bar.unit then
 		auraFunction = bar.isDebuff and UnitDebuff or UnitBuff
 		
 		for i = 1, 32 do
-			name, _, _, count, _, _, expirationTime, isMine = auraFunction(unit, i)
+			name, _, _, count, _, _, expirationTime, source = auraFunction(unit, i)
 			
 			if not name then
 				bar:Hide()
 				break
 			end
 			
-			if isMine and name == bar.spellName() then
+			if source == "player" and name == bar.spellName() then
 				color = bar.colors[math.max(1, count)]
 			
 				bar:SetValue(expirationTime - GetTime())
