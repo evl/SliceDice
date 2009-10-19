@@ -144,7 +144,7 @@ function evl_SliceDice:ScanBar(bar, unit)
 				break
 			end
 			
-			if source == unit and name == bar.spellName() then
+			if (source == "player" or source == "vehicle") and name == bar.spellName() then
 				color = bar.colors[math.max(1, count)]
 			
 				bar:SetValue(expirationTime - GetTime())

@@ -42,14 +42,15 @@ if select(2, UnitClass("player")) == "ROGUE" then
 	local sliceAndDiceBar = evl_SliceDice:CreateBar("player", "Slice and Dice", sliceAndDiceDuration, 19)
 	sliceAndDiceBar:SetStatusBarTexture("Interface\\AddOns\\evl_SliceDice\\media\\HalT")
 	
+	-- Rupture
+	local ruptureBar = evl_SliceDice:CreateBar("target", "Rupture", ruptureDuration, 6)
+	ruptureBar.isDebuff = true
+	ruptureBar.colors = {{200/255, 0/255, 0/255}}
+	ruptureBar.label:Hide()
+
 	-- Hunger For Blood
 	local hungerDuration = 60
 	local hungerBar = evl_SliceDice:CreateBar("player", "Hunger For Blood", hungerDuration, 6)
 	hungerBar.colors = {{200/255, 0/255, 0/255}}
 	hungerBar.label:Hide()
-
-	-- Rupture
-	local ruptureBar = evl_SliceDice:CreateBar("target", "Rupture", ruptureDuration, 6)
-	ruptureBar.isDebuff = true
-	ruptureBar.label:Hide()
 end
