@@ -51,6 +51,6 @@ if select(2, UnitClass("player")) == "ROGUE" then
 	-- Hunger For Blood
 	local hungerDuration = 60
 	local hungerBar = evl_SliceDice:CreateBar("player", "Hunger For Blood", hungerDuration, 6)
-	hungerBar.colors = {{200/255, 0/255, 0/255}}
+	hungerBar.colors = {{200/255, 200/255, 0/255}}
 	hungerBar.label:Hide()
 end

@@ -62,29 +62,20 @@ function evl_SliceDice:getItemSetCount(set)
 end
 
 function evl_SliceDice:UNIT_AURA(event, unit)
-	local shown = false
+	self:ScanBars(unit)
+end
 
-	for _, bar in ipairs(self.bars) do
-		self:ScanBar(bar, unit)
-		
-		if bar:IsShown() then
-			shown = true
-		end
-	end
-	
-	if shown then
-		self:Show()
-	else
-		self:Hide()
-	end
+function evl_SliceDice:PLAYER_ENTERING_WORLD(event)
+	self:UpdateMaxValues()
+	self:ScanBars(UnitInVehicle("player") and "vehicle" or "player")
 end
 
 function evl_SliceDice:UNIT_ENTERED_VEHICLE(event, unit)
-	self:UNIT_AURA(event, "vehicle")
+	self:ScanBars("vehicle")
 end
 
 function evl_SliceDice:UNIT_EXITED_VEHICLE(event, unit)
-	self:UNIT_AURA(event, "vehicle")
+	self:ScanBars("vehicle")
 end
 
 function evl_SliceDice:PLAYER_TARGET_CHANGED(event)
@@ -131,6 +122,23 @@ function evl_SliceDice:UpdateBars(event, elapsed)
 	end
 end
 
+function evl_SliceDice:ScanBars(unit)
+	local shown = false
+	for _, bar in ipairs(self.bars) do
+		self:ScanBar(bar, unit)
+		
+		if bar:IsShown() then
+			shown = true
+		end
+	end
+	
+	if shown then
+		self:Show()
+	else
+		self:Hide()
+	end
+end
+
 local name, count, expirationTime, source, auraFunction, color
 function evl_SliceDice:ScanBar(bar, unit)
 	if unit == bar.unit then
@@ -145,7 +153,7 @@ function evl_SliceDice:ScanBar(bar, unit)
 			end
 			
 			if (source == "player" or source == "vehicle") and name == bar.spellName() then
-				color = bar.colors[math.max(1, count)]
+				color = bar.colors[math.max(1, math.min(#bar.colors, count))]
 			
 				bar:SetValue(expirationTime - GetTime())
 				bar:SetStatusBarColor(color[1], color[2], color[3])
