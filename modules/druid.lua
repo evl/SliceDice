@@ -51,7 +51,7 @@ if select(2, UnitClass("player")) == "DRUID" then
 		
 		-- Nightsong set(s)
 		local nightsongCount = evl_SliceDice:getItemSetCount(valorousNightsongSet) + evl_SliceDice:getItemSetCount(conquerorsNightsongSet)
-		if dreamwalkerCount > 3 then
+		if nightsongCount > 3 then
 			maxValue = maxValue + 8
 		end
 		
