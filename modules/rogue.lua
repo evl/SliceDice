@@ -23,14 +23,20 @@ if select(2, UnitClass("player")) == "ROGUE" then
 	end
 	
 	local ruptureGlyph = 56801 -- http://www.wowhead.com/?spell=56801
+	local backstabGlyph = 56800 -- http://www.wowhead.com/?spell=56800
 	local ruptureDuration = function()
 		local maxValue = 16
 
-		-- Glyph
+		-- Glyph of Rupture
 		if evl_SliceDice:hasGlyph(ruptureGlyph) then 
 			maxValue = maxValue + 4
 		end
-
+		
+		-- Glyph of Backstab
+		if evl_SliceDice:hasGlyph(backstabGlyph) then 
+			maxValue = maxValue + 6
+		end
+		
 		-- Talent
 		local rank = evl_SliceDice:getTalentRank(1, 5)
 		maxValue = maxValue + (maxValue * (rank * 0.15))
