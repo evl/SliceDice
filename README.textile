@@ -1,0 +1,8 @@
+Provides duration bars for core class abilities.
+
+!http://i37.tinypic.com/wwdp1c.png!
+__Showing Slice and Dice and Rupture__
+
+h2. Customization
+
+Please see existing modules for in-depth examples.
