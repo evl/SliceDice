@@ -165,27 +165,29 @@ function evl_SliceDice:ScanBar(bar, unit)
 end
 
 function evl_SliceDice:OrganizeBars()
+	local firstBar
 	local previousBar
 	
 	for _, bar in ipairs(self.bars) do
 		if bar:IsVisible() then
 			if previousBar then
 				bar:SetPoint("TOPLEFT", previousBar, "BOTTOMLEFT", 0, -1)
-				bar:SetPoint("RIGHT", previousBar, "RIGHT")
 			else
-				bar:SetPoint("TOPLEFT", self, "TOPLEFT")
-				bar:SetPoint("RIGHT", self, "RIGHT")
+				firstBar = bar
 			end
-			
-			self.background:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 5, -5)
 			
 			previousBar = bar
 		end
 	end
 	
-	if not previousBar then
+	if previousBar then
+		firstBar:SetPoint("TOP", UIParent, "BOTTOM", 0, 180)
+		
+		self.background:SetPoint("TOPLEFT", firstBar, "TOPLEFT", -5, 5)
+		self.background:SetPoint("BOTTOMRIGHT", previousBar, "BOTTOMRIGHT", 5, -5)
+	else
 		self:Hide()
-	end
+	end		
 end
 
 function evl_SliceDice:CreateBar(unit, spellName, maxDuration, height)
@@ -200,6 +202,7 @@ function evl_SliceDice:CreateBar(unit, spellName, maxDuration, height)
 	label:SetJustifyH("LEFT")
 	
 	bar:SetHeight(height)
+	bar:SetPoint("RIGHT", self, "RIGHT")
 	bar:SetStatusBarTexture("Interface\\AddOns\\evl_SliceDice\\media\\HalW")
 	bar:Hide()
 	bar:SetScript("OnHide", onVisibilityChanged)
@@ -219,7 +222,6 @@ end
 
 local background = CreateFrame("Frame", nil, evl_SliceDice)
 background:SetFrameStrata("BACKGROUND")
-background:SetPoint("TOPLEFT", evl_SliceDice, "TOPLEFT", -5, 5)
 background:SetBackdrop({
 	bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", 
 	edgeFile = "Interface\\AddOns\\evl_SliceDice\\media\\HalBorderSmall", 
@@ -232,7 +234,7 @@ evl_SliceDice.bars = {}
 evl_SliceDice.background = background
 
 evl_SliceDice:SetWidth(250)
-evl_SliceDice:SetPoint("TOP", UIParent, "BOTTOM", 0, 180)
+evl_SliceDice:SetPoint("TOP", UIParent, "TOP")
 evl_SliceDice:SetPoint("BOTTOM", UIParent, "BOTTOM")
 evl_SliceDice:Hide()
 
