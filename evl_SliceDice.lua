@@ -1,4 +1,10 @@
 evl_SliceDice = CreateFrame("Frame", nil, UIParent)
+evl_SliceDice.config = {
+	position = {"TOP", MainMenuBar, "TOP", 0, 125},
+	width = 250,
+	growUpwards = true,
+	barTexture = "Interface\\AddOns\\evl_SliceDice\\media\\HalW",
+}
 
 local createGetter = function(property)
 	if type(property) == "function" then
@@ -66,6 +72,10 @@ function evl_SliceDice:UNIT_AURA(event, unit)
 end
 
 function evl_SliceDice:PLAYER_ENTERING_WORLD(event)
+	self:SetWidth(self.config.width)
+	self:SetHeight(20)
+
+	self:SetPoint(self.config.position[1], self.config.position[2], self.config.position[3], self.config.position[4], self.config.position[5])
 	self:UpdateMaxValues()
 	self:ScanBars(UnitInVehicle("player") and "vehicle" or "player")
 end
@@ -165,26 +175,31 @@ function evl_SliceDice:ScanBar(bar, unit)
 end
 
 function evl_SliceDice:OrganizeBars()
-	local firstBar
-	local previousBar
+	local growUpwards = self.config.growUpwards
+	local topBar
+	local bottomBar
 	
 	for _, bar in ipairs(self.bars) do
 		if bar:IsVisible() then
-			if previousBar then
-				bar:SetPoint("TOPLEFT", previousBar, "BOTTOMLEFT", 0, -1)
-			else
-				firstBar = bar
-			end
+			bar:ClearAllPoints()
 			
-			previousBar = bar
+			if growUpwards then
+				bar:SetPoint("BOTTOMLEFT", topBar or self, topBar and "TOPLEFT" or "BOTTOMLEFT", 0, topBar and 1 or 0)
+			
+				topBar = bar
+			else
+				bar:SetPoint("TOPLEFT", bottomBar or self, bottomBar and "BOTTOMLEFT" or "TOPLEFT", 0, bottomBar and -1 or 0)
+			
+				bottomBar = bar
+			end
+
+			bar:SetPoint("RIGHT", self, "RIGHT")
 		end
 	end
 	
-	if previousBar then
-		firstBar:SetPoint("TOP", UIParent, "BOTTOM", 0, 180)
-		
-		self.background:SetPoint("TOPLEFT", firstBar, "TOPLEFT", -5, 5)
-		self.background:SetPoint("BOTTOMRIGHT", previousBar, "BOTTOMRIGHT", 5, -5)
+	if topBar or bottomBar then
+		self.background:SetPoint("TOPLEFT", topBar or self, "TOPLEFT", -5, 5)
+		self.background:SetPoint("BOTTOMRIGHT", bottomBar or self, "BOTTOMRIGHT", 5, -5)
 	else
 		self:Hide()
 	end		
@@ -203,7 +218,7 @@ function evl_SliceDice:CreateBar(unit, spellName, maxDuration, height)
 	
 	bar:SetHeight(height)
 	bar:SetPoint("RIGHT", self, "RIGHT")
-	bar:SetStatusBarTexture("Interface\\AddOns\\evl_SliceDice\\media\\HalW")
+	bar:SetStatusBarTexture(self.config.barTexture)
 	bar:Hide()
 	bar:SetScript("OnHide", onVisibilityChanged)
 	bar:SetScript("OnShow", onVisibilityChanged)
@@ -215,7 +230,7 @@ function evl_SliceDice:CreateBar(unit, spellName, maxDuration, height)
 	bar.maxDuration = createGetter(maxDuration)
 	bar.isDebuff = false
 	
-	table.insert(self.bars, bar)
+	table.insert(self.bars, self.config.growUpwards and 1 or #self.bars + 1, bar)
 
 	return bar
 end
@@ -233,11 +248,7 @@ background:SetBackdropBorderColor(1, 1, 1, .7)
 evl_SliceDice.bars = {}
 evl_SliceDice.background = background
 
-evl_SliceDice:SetWidth(250)
-evl_SliceDice:SetPoint("TOP", UIParent, "TOP")
-evl_SliceDice:SetPoint("BOTTOM", UIParent, "BOTTOM")
 evl_SliceDice:Hide()
-
 evl_SliceDice:SetScript("OnEvent", onEvent)
 evl_SliceDice:SetScript("OnUpdate", onUpdate)
 
@@ -247,6 +258,7 @@ evl_SliceDice:RegisterEvent("UNIT_EXITED_VEHICLE")
 evl_SliceDice:RegisterEvent("PLAYER_TARGET_CHANGED")
 evl_SliceDice:RegisterEvent("PLAYER_ENTERING_WORLD")
 evl_SliceDice:RegisterEvent("PLAYER_ALIVE")
+evl_SliceDice:RegisterEvent("PLAYER_TALENT_UPDATE")
 evl_SliceDice:RegisterEvent("GLYPH_ADDED")
 evl_SliceDice:RegisterEvent("GLYPH_REMOVED")
 evl_SliceDice:RegisterEvent("GLYPH_UPDATED")

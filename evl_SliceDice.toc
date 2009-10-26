@@ -3,6 +3,7 @@
 ## Author: Evl
 
 evl_SliceDice.lua
+config.lua
 
 modules\druid.lua
 modules\rogue.lua
