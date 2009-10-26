@@ -1,6 +1,6 @@
 evl_SliceDice = CreateFrame("Frame", nil, UIParent)
 evl_SliceDice.config = {
-	position = {"TOP", MainMenuBar, "TOP", 0, 125},
+	position = {"TOP", UIParent, "BOTTOM", 0, 180},
 	width = 250,
 	growUpwards = true,
 	barTexture = "Interface\\AddOns\\evl_SliceDice\\media\\HalW",
