@@ -74,8 +74,8 @@ end
 function evl_SliceDice:PLAYER_ENTERING_WORLD(event)
 	self:SetWidth(self.config.width)
 	self:SetHeight(20)
+	self:SetPoint(unpack(self.config.position))
 
-	self:SetPoint(self.config.position[1], self.config.position[2], self.config.position[3], self.config.position[4], self.config.position[5])
 	self:UpdateMaxValues()
 	self:ScanBars(UnitInVehicle("player") and "vehicle" or "player")
 end
@@ -166,7 +166,7 @@ function evl_SliceDice:ScanBar(bar, unit)
 				color = bar.colors[math.max(1, math.min(#bar.colors, count))]
 			
 				bar:SetValue(expirationTime - GetTime())
-				bar:SetStatusBarColor(color[1], color[2], color[3])
+				bar:SetStatusBarColor(unpack(color))
 				bar:Show()		
 				return
 			end
