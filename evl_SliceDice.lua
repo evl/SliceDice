@@ -127,6 +127,8 @@ function evl_SliceDice:UpdateBars(event, elapsed)
 				if bar.label:IsVisible() then
 					bar.label:SetText(timeFormat:format(timeLeft))
 				end
+			else
+				bar:Hide()
 			end
 		end
 	end
@@ -217,7 +219,6 @@ function evl_SliceDice:CreateBar(unit, spellName, maxDuration, height)
 	label:SetJustifyH("LEFT")
 	
 	bar:SetHeight(height)
-	bar:SetPoint("RIGHT", self, "RIGHT")
 	bar:SetStatusBarTexture(self.config.barTexture)
 	bar:Hide()
 	bar:SetScript("OnHide", onVisibilityChanged)
