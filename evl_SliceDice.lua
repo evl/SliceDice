@@ -39,9 +39,7 @@ end
 
 function evl_SliceDice:hasGlyph(id)
 	for i = 1, 6 do
-		local _, _, glyphSpell = GetGlyphSocketInfo(i)
-		
-		if glyphSpell == id then
+		if select(3, GetGlyphSocketInfo(i)) == id then
 			return true
 		end
 	end
@@ -53,8 +51,9 @@ function evl_SliceDice:getItemSetCount(set)
 	local count = 0
 	local link
 	
-	for i = 1,10 do
+	for i = 1, 10 do
 		link = GetInventoryItemLink("player", i)
+
 		if link then
 			for _, itemId in pairs(set) do
 				if link:find(itemId) then
@@ -89,17 +88,7 @@ function evl_SliceDice:UNIT_EXITED_VEHICLE(event, unit)
 end
 
 function evl_SliceDice:PLAYER_TARGET_CHANGED(event)
-	for _, bar in ipairs(self.bars) do
-		local unit = bar.unit
-
-		if unit == "target" then
-			if UnitExists(unit) then
-				self:ScanBar(bar, unit)
-			else
-				bar:Hide()
-			end
-		end
-	end
+	self:ScanBars("target")
 end
 
 function evl_SliceDice:UNIT_INVENTORY_CHANGED(event, unit)
@@ -136,11 +125,12 @@ end
 
 function evl_SliceDice:ScanBars(unit)
 	local shown = false
+
 	for _, bar in ipairs(self.bars) do
 		self:ScanBar(bar, unit)
-		
-		if bar:IsShown() then
-			shown = true
+
+		if not shown then
+			shown = bar:IsShown()
 		end
 	end
 	
@@ -151,27 +141,19 @@ function evl_SliceDice:ScanBars(unit)
 	end
 end
 
-local name, count, expirationTime, source, auraFunction, color
+local name, count, expirationTime, auraFunction, color
 function evl_SliceDice:ScanBar(bar, unit)
 	if unit == bar.unit then
-		auraFunction = bar.isDebuff and UnitDebuff or UnitBuff
+		name, _, _, count, _, _, expirationTime = bar.auraFunction(unit, bar.spellName(), nil, bar.auraFilter)
 		
-		for i = 1, 32 do
-			name, _, _, count, _, _, expirationTime, source = auraFunction(unit, i)
-			
-			if not name then
-				bar:Hide()
-				break
-			end
-			
-			if (source == "player" or source == "vehicle") and name == bar.spellName() then
-				color = bar.colors[math.max(1, math.min(#bar.colors, count))]
-			
-				bar:SetValue(expirationTime - GetTime())
-				bar:SetStatusBarColor(unpack(color))
-				bar:Show()		
-				return
-			end
+		if name then
+			color = bar.colors[math.max(1, math.min(#bar.colors, count))]
+		
+			bar:SetValue(expirationTime - GetTime())
+			bar:SetStatusBarColor(unpack(color))
+			bar:Show()
+		else
+			bar:Hide()
 		end
 	end
 end
@@ -229,7 +211,8 @@ function evl_SliceDice:CreateBar(unit, spellName, maxDuration, height)
 	bar.colors = {{130/255, 122/255, 94/255}}
 	bar.spellName = createGetter(spellName)
 	bar.maxDuration = createGetter(maxDuration)
-	bar.isDebuff = false
+	bar.auraFunction = UnitAura
+	bar.auraFilter = (unit == "target" and "HARMFUL" or "HELPFUL") .. "|PLAYER"
 	
 	table.insert(self.bars, self.config.growUpwards and 1 or #self.bars + 1, bar)
 
