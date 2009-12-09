@@ -56,7 +56,6 @@ if select(2, UnitClass("player")) == "ROGUE" then
 
 	-- Rupture
 	local ruptureBar = evl_SliceDice:CreateBar("target", "Rupture", ruptureDuration, 6)
-	ruptureBar.isDebuff = true
 	ruptureBar.colors = {{100/255, 0/255, 0/255}}
 	ruptureBar.label:Hide()
 end

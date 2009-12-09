@@ -64,12 +64,10 @@ if select(2, UnitClass("player")) == "DRUID" then
 
 	-- Rip
 	local ripBar = evl_SliceDice:CreateBar("target", "Rip", ripDuration, 6)
-	ripBar.isDebuff = true
 	ripBar.colors = {{255/255, 0/255, 0/255}}
 	ripBar.label:Hide()
 
 	-- Rake
 	local rakeBar = evl_SliceDice:CreateBar("target", "Rake", rakeDuration, 6)
-	rakeBar.isDebuff = true
 	rakeBar.label:Hide()	
 end
