@@ -1,4 +1,4 @@
-evl_SliceDice.config.position = {"TOP", MainMenuBar, "TOP", 0, 125} -- Anchor position, see http://www.wowwiki.com/API_Region_SetPoint
+evl_SliceDice.config.position = {"TOP", UIParent, "BOTTOM", 0, 180} -- Anchor position, see http://www.wowwiki.com/API_Region_SetPoint
 evl_SliceDice.config.width = 250 -- Width of each bar
 evl_SliceDice.config.growUpwards = false -- Grow bars upwards
 evl_SliceDice.config.barTexture = "Interface\\AddOns\\evl_SliceDice\\media\\HalW" -- Texture to use for bars

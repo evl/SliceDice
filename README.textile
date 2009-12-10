@@ -7,6 +7,22 @@ h2. Configuration
 
 Copy @config.lua.sample@ to @config.lua@ and modify as required.
 
+h2. Modules
+
+*Druid*
+* Savage Roar
+* Rip
+* Rake
+
+*Rogue*
+* Slice and Dice
+* Hunger For Blood
+* Rupture
+
+*Warrior*
+* Rend
+* Hamstring
+
 h2. Customizing modules
 
 Please see existing modules for in-depth examples.

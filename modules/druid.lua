@@ -9,6 +9,8 @@ if select(2, UnitClass("player")) == "DRUID" then
 	local triumphantMalfurion258 = {48204, 48207, 48206, 48203, 48205}	-- Tier9 iLvl258 Alliance
 	local triumphantRunetotems245  = {48194, 48197, 48196, 48193, 48195}	-- Tier9 iLvl245 Horde
 	local triumphantRunetotems258 = {48201, 48198, 48199, 48202, 48200}	-- Tier9 iLvl258 Horde
+
+-- FERAL
 	
 	local ripGlyph = 54818
 	local shredGlyph = 54815
@@ -64,12 +66,42 @@ if select(2, UnitClass("player")) == "DRUID" then
 
 	-- Rip
 	local ripBar = evl_SliceDice:CreateBar("target", "Rip", ripDuration, 6)
-	ripBar.isDebuff = true
 	ripBar.colors = {{255/255, 0/255, 0/255}}
 	ripBar.label:Hide()
 
 	-- Rake
 	local rakeBar = evl_SliceDice:CreateBar("target", "Rake", rakeDuration, 6)
-	rakeBar.isDebuff = true
 	rakeBar.label:Hide()	
+	
+-- MOONKIN
+
+	local ffDuration = 300
+	local insectswarmDuration = 14
+	local starfireGlyph = 54845 -- http://www.wowhead.com/?spell=54845
+	local moonfireDuration = function()
+		local maxValue = 15
+		
+		-- Glyph of Starfire
+		if evl_SliceDice:hasGlyph(starfireGlyph) then 
+			maxValue = maxValue + 9
+		end
+		
+		return maxValue
+	end	
+
+	-- Insect Swarm
+	local isBar = evl_SliceDice:CreateBar("target", "Insect Swarm", insectswarmDuration, 14)
+	isBar.colors = {{0/255, 150/255, 0/255}}
+--	isBar.label:Hide()
+	
+	-- Moonfire
+	local mfBar = evl_SliceDice:CreateBar("target", "Moonfire", moonfireDuration, 14)
+	mfBar.colors = {{150/255, 0/255, 255/255}}
+--	mfBar.label:Hide()
+
+	-- Faerie Fire
+	local ffBar = evl_SliceDice:CreateBar("target", "Faerie Fire", ffDuration, 6)
+	ffBar.auraFilter = "HARMFUL"
+	ffBar.label:Hide()
+
 end

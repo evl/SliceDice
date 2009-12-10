@@ -1,4 +1,4 @@
-## Interface: 30200
+## Interface: 30300
 ## Title: Evl's Slice Dice
 ## Author: Evl
 
@@ -10,4 +10,3 @@ modules\rogue.lua
 modules\warrior.lua
 
 modules\joust.lua
-
