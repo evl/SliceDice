@@ -5,7 +5,8 @@
 evl_SliceDice.lua
 config.lua
 
-modules\druid.lua
+modules\moonkin.lua
+modules\feral.lua
 modules\rogue.lua
 modules\warrior.lua
 
