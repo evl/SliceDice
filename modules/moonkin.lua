@@ -51,7 +51,7 @@ if select(2, UnitClass("player")) == "DRUID" then
 			end
 		end
 
-		if eclipseExpiration . GetTime() > 0 then
+		if eclipseExpiration - GetTime() > 0 then
 			return name, _, _, eclipseColor, _, _, eclipseExpiration
 		else
 			return nil
