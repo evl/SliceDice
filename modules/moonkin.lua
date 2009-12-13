@@ -34,28 +34,18 @@ if select(2, UnitClass("player")) == "DRUID" then
 	local eclipseOrangeBuff = 48517 -- http://www.wowhead.com/?spell=48517
 	local eclipseBlueBuff = 48518 -- http://www.wowhead.com/?spell=48518
 	local eclipseAuraFunction = function(unit, spellName, rank, filter)
-		for i = 1, BUFF_MAX_DISPLAY do
-			local name, _, _, _, _, _, expirationTime, _, _, _, spellId = UnitAura(unit, i, filter)
-			
-			if name then
-				if spellId == eclipseOrangeBuff then
-					eclipseColor = 1
-				elseif spellId == eclipseBlueBuff then
-					eclipseColor = 2
-				end
-				
-				if eclipseColor then
-					eclipseExpiration = expirationTime + eclipseCooldown
-					break
-				end
-			end
+		local name, _, _, _, _, _, expirationTime, _, _, _, spellId = UnitAura(unit, spellName, nil, filter)
+		
+		if name then
+			eclipseColor = eclipseOrangeBuff and 1 or 2
+			eclipseExpiration = expirationTime + eclipseCooldown
 		end
-
-		if eclipseExpiration - GetTime() > 0 then
+		
+		if expirationTime < GetTime() then
 			return name, _, _, eclipseColor, _, _, eclipseExpiration
-		else
-			return nil
 		end
+		
+		return nil
 	end
 
 	local eclipseBar = evl_SliceDice:CreateBar("player", "Eclipse", eclipseDuration + eclipseCooldown, 14)
