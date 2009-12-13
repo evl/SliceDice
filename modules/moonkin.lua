@@ -44,7 +44,7 @@ if select(2, UnitClass("player")) == "DRUID" then
 					eclipseColor = 2
 				end
 				
-				if color then
+				if eclipseColor then
 					eclipseExpiration = expirationTime + eclipseCooldown
 					break
 				end
