@@ -41,7 +41,7 @@ if select(2, UnitClass("player")) == "DRUID" then
 			eclipseExpiration = expirationTime + eclipseCooldown
 		end
 		
-		if expirationTime < GetTime() then
+		if eclipseExpiration < GetTime() then
 			return name, _, _, eclipseColor, _, _, eclipseExpiration
 		end
 		
