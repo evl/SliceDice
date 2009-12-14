@@ -37,18 +37,25 @@ if select(2, UnitClass("player")) == "DRUID" then
 		local name, _, _, _, _, _, expirationTime, _, _, _, spellId = UnitAura(unit, spellName, nil, filter)
 		
 		if name then
-			eclipseColor = eclipseOrangeBuff and 1 or 2
+			eclipseColor = spellId == eclipseOrangeBuff and 1 or 2
 			eclipseExpiration = expirationTime + eclipseCooldown
 		end
 		
-		if eclipseExpiration < GetTime() then
-			return name, _, _, eclipseColor, _, _, eclipseExpiration
+		local timeLeft = GetTime() - eclipseExpiration
+		
+		if timeLeft > 0 then
+			return spellName, _, _, eclipseColor + (timeLeft <= eclipseCooldown and 2 or 0), _, _, eclipseExpiration
 		end
 		
 		return nil
 	end
 
 	local eclipseBar = evl_SliceDice:CreateBar("player", "Eclipse", eclipseDuration + eclipseCooldown, 14)
-	eclipseBar.colors = {{200/255, 200/255, 0/255}, {0/255, 0/255, 200/255}}
 	eclipseBar.auraFunction = eclipseAuraFunction
+	eclipseBar.colors = {
+		{255/255, 150/255, 0/255}, 
+		{0/255, 150/255, 255/255},
+		{150/255, 100/255, 0/255}, 
+		{0/255, 100/255, 150/255},
+	}
 end
