@@ -9,10 +9,16 @@ Copy @config.lua.sample@ to @config.lua@ and modify as required.
 
 h2. Modules
 
-*Druid*
+*Druid (Feral)*
 * Savage Roar
 * Rip
 * Rake
+
+*Druid (Moonkin)*
+* Insect Swarm
+* Moonfire
+* Faerie Fire
+* Eclipse (buff and internal cooldown)
 
 *Rogue*
 * Slice and Dice
