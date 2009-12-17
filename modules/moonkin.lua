@@ -1,4 +1,4 @@
---if select(2, UnitClass("player")) == "DRUID" then
+if select(2, UnitClass("player")) == "DRUID" then
 	local ffDuration = 300
 	local insectswarmDuration = 14
 	local starfireGlyph = 54845
@@ -41,7 +41,7 @@
 			eclipseExpiration = expirationTime + eclipseCooldown
 		end
 		
-		local timeLeft = eclipseExpiration - GetTime()
+		local timeLeft = GetTime() - eclipseExpiration
 		
 		if timeLeft > 0 then
 			return spellName, _, _, eclipseColor + (timeLeft <= eclipseCooldown and 2 or 0), _, _, eclipseExpiration
@@ -50,7 +50,7 @@
 		return nil
 	end
 
-	local eclipseBar = evl_SliceDice:CreateBar("player", "Slice and Dice", eclipseDuration + eclipseCooldown, 14)
+	local eclipseBar = evl_SliceDice:CreateBar("player", "Eclipse", eclipseDuration + eclipseCooldown, 14)
 	eclipseBar.auraFunction = eclipseAuraFunction
 	eclipseBar.colors = {
 		{255/255, 150/255, 0/255}, 
@@ -58,4 +58,4 @@
 		{150/255, 100/255, 0/255}, 
 		{0/255, 100/255, 150/255},
 	}
---end
+end
