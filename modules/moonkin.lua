@@ -41,7 +41,7 @@ if select(2, UnitClass("player")) == "DRUID" then
 			eclipseExpiration = expirationTime + eclipseCooldown
 		end
 		
-		local timeLeft = GetTime() - eclipseExpiration
+		local timeLeft = eclipseExpiration - GetTime()
 		
 		if timeLeft > 0 then
 			return spellName, _, _, eclipseColor + (timeLeft <= eclipseCooldown and 2 or 0), _, _, eclipseExpiration
