@@ -50,7 +50,7 @@ if select(2, UnitClass("player")) == "DRUID" then
 		return nil
 	end
 
-	local eclipseBar = evl_SliceDice:CreateBar("player", "Eclipse", eclipseDuration + eclipseCooldown, 14)
+	local eclipseBar = evl_SliceDice:CreateBar("player", "Eclipse", eclipseDuration, 14)
 	eclipseBar.auraFunction = eclipseAuraFunction
 	eclipseBar.colors = {
 		{255/255, 150/255, 0/255}, 
