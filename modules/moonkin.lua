@@ -12,19 +12,6 @@ if select(2, UnitClass("player")) == "DRUID" then
 
 		return maxValue
 	end	
-
-	-- Insect Swarm
-	local isBar = evl_SliceDice:CreateBar("target", "Insect Swarm", insectswarmDuration, 14)
-	isBar.colors = {{0/255, 150/255, 0/255}}
-
-	-- Moonfire
-	local mfBar = evl_SliceDice:CreateBar("target", "Moonfire", moonfireDuration, 14)
-	mfBar.colors = {{150/255, 0/255, 255/255}}
-
-	-- Faerie Fire
-	local ffBar = evl_SliceDice:CreateBar("target", "Faerie Fire", ffDuration, 6)
-	ffBar.auraFilter = "HARMFUL"
-	ffBar.label:Hide()
 	
 	-- Eclipse
 	local eclipseDuration = 15
@@ -58,4 +45,17 @@ if select(2, UnitClass("player")) == "DRUID" then
 		{150/255, 100/255, 0/255}, 
 		{0/255, 100/255, 150/255},
 	}
+
+	-- Insect Swarm
+	local isBar = evl_SliceDice:CreateBar("target", "Insect Swarm", insectswarmDuration, 14)
+	isBar.colors = {{0/255, 150/255, 0/255}}
+
+	-- Moonfire
+	local mfBar = evl_SliceDice:CreateBar("target", "Moonfire", moonfireDuration, 14)
+	mfBar.colors = {{150/255, 0/255, 255/255}}
+
+	-- Faerie Fire
+	local ffBar = evl_SliceDice:CreateBar("target", "Faerie Fire", ffDuration, 6)
+	ffBar.auraFilter = "HARMFUL"
+	ffBar.label:Hide()
 end
