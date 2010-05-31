@@ -33,6 +33,10 @@ local onVisibilityChanged = function(self)
 	evl_SliceDice:OrganizeBars()
 end
 
+local defaultAuraFunction = function(bar, unit, spellName, rank, filter)
+	return UnitAura(unit, spellName, rank, filter)
+end
+
 function evl_SliceDice:getTalentRank(tabIndex, talentIndex)
 	return select(5, GetTalentInfo(tabIndex, talentIndex))
 end
@@ -144,7 +148,7 @@ end
 local name, count, expirationTime, auraFunction, color
 function evl_SliceDice:ScanBar(bar, unit)
 	if unit == bar.unit then
-		name, _, _, count, _, _, expirationTime = bar.auraFunction(unit, bar.spellName(), nil, bar.auraFilter)
+		name, _, _, count, _, _, expirationTime = bar.auraFunction(bar, unit, bar.spellName(), nil, bar.auraFilter)
 		
 		if name then
 			color = bar.colors[math.max(1, math.min(#bar.colors, count))]
@@ -211,7 +215,7 @@ function evl_SliceDice:CreateBar(unit, spellName, maxDuration, height)
 	bar.colors = {{130/255, 122/255, 94/255}}
 	bar.spellName = createGetter(spellName)
 	bar.maxDuration = createGetter(maxDuration)
-	bar.auraFunction = UnitAura
+	bar.auraFunction = defaultAuraFunction
 	bar.auraFilter = (unit == "target" and "HARMFUL" or "HELPFUL") .. "|PLAYER"
 	
 	table.insert(self.bars, self.config.growUpwards and 1 or #self.bars + 1, bar)

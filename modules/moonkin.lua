@@ -2,33 +2,33 @@ if select(2, UnitClass("player")) == "DRUID" then
 	-- Eclipse
 	local eclipseDuration = 15
 	local eclipseCooldown = 15
-	local eclipseColor
-	local eclipseExpiration = 0
-	local eclipseOrangeBuff = 48517 -- http://www.wowhead.com/?spell=48517
-	local eclipseBlueBuff = 48518 -- http://www.wowhead.com/?spell=48518
-	local eclipseAuraFunction = function(unit, spellName, rank, filter)
+	local eclipseAuraFunction = function(bar, unit, spellName, rank, filter)
 		local name, _, _, _, _, _, expirationTime, _, _, _, spellId = UnitAura(unit, spellName, nil, filter)
 		
 		if name then
-			eclipseColor = spellId == eclipseOrangeBuff and 1 or 2
-			eclipseExpiration = expirationTime + eclipseCooldown
+			bar.eclipseExpiration = expirationTime + eclipseCooldown
 		end
 		
-		local timeLeft = eclipseExpiration - GetTime()
+		local timeLeft = (bar.eclipseExpiration or 0) - GetTime()
 		
 		if timeLeft > 0 then
-			return spellName, _, _, eclipseColor + (timeLeft <= eclipseCooldown and 2 or 0), _, _, (timeLeft > eclipseDuration and eclipseExpiration - eclipseDuration or eclipseExpiration)
+			return spellName, _, _, timeLeft <= eclipseCooldown and 1 or 2, _, _, bar.eclipseExpiration - (timeLeft > eclipseDuration and eclipseDuration or 0)
 		end
 		
 		return nil
 	end
+	
+	local solarEclipseBar = evl_SliceDice:CreateBar("player", "Eclipse (Solar)", eclipseDuration, 14)
+	solarEclipseBar.auraFunction = eclipseAuraFunction
+	solarEclipseBar.colors = {
+		{255/255, 150/255, 0/255},
+		{150/255, 100/255, 0/255},
+	}
 
-	local eclipseBar = evl_SliceDice:CreateBar("player", "Eclipse", eclipseDuration, 14)
-	eclipseBar.auraFunction = eclipseAuraFunction
-	eclipseBar.colors = {
-		{255/255, 150/255, 0/255}, 
+	local lunarEclipseBar = evl_SliceDice:CreateBar("player", "Eclipse (Lunar)", eclipseDuration, 14)
+	lunarEclipseBar.auraFunction = eclipseAuraFunction
+	lunarEclipseBar.colors = {
 		{0/255, 150/255, 255/255},
-		{150/255, 100/255, 0/255}, 
 		{0/255, 100/255, 150/255},
 	}
 
