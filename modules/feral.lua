@@ -70,4 +70,35 @@ if select(2, UnitClass("player")) == "DRUID" then
 	-- Rake
 	local rakeBar = evl_SliceDice:CreateBar("target", "Rake", rakeDuration, 6)
 	rakeBar.label:Hide()	
+	
+	-- Lacerate
+	local lacerateDuration = 15
+	local lacerateBar = evl_SliceDice:CreateBar("target", "Lacerate", lacerateDuration, 16)
+	lacerateBar:SetStatusBarTexture("Interface\\AddOns\\evl_SliceDice\\media\\HalT")
+	lacerateBar.colors = {{200/255, 0/255, 0/255}, {200/255, 100/255, 0/255}, {200/255, 200/255, 0/255}, {150/255, 200/255, 0/255}, {0/255, 200/255, 0/255}}
+	
+	-- Demoralizing Roar
+	local demoDuration = 30
+	local demoBar = evl_SliceDice:CreateBar("target", "Demoralizing Roar", demoDuration, 6)
+	demoBar.colors = {{200/255, 200/255, 0/255}}
+	demoBar.label:Hide()
+	
+	-- Mangle (Bear)
+	local mangleDuration = 60
+	local mangleBearBar = evl_SliceDice:CreateBar("target", "Mangle (Bear)", mangleDuration, 6)
+	mangleBearBar.colors = {{100/255, 0/255, 0/255}}
+	mangleBearBar.auraFilter = "HARMFUL"
+	mangleBearBar.label:Hide()
+
+	-- Mangle (Cat)
+	local mangleCatBar = evl_SliceDice:CreateBar("target", "Mangle (Cat)", mangleDuration, 6)
+	mangleCatBar.colors = {{100/255, 0/255, 0/255}}
+	mangleCatBar.auraFilter = "HARMFUL"
+	mangleCatBar.label:Hide()
+	
+	-- Faerie Fire (Feral)
+	local faerieFireDuration = 300
+	local faerieFireBar = evl_SliceDice:CreateBar("target", "Faerie Fire (Feral)", faerieFireDuration, 6)
+	faerieFireBar.auraFilter = "HARMFUL"
+	faerieFireBar.label:Hide()
 end
