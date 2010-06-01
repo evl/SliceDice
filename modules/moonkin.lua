@@ -21,15 +21,15 @@ if select(2, UnitClass("player")) == "DRUID" then
 	local solarEclipseBar = evl_SliceDice:CreateBar("player", "Eclipse (Solar)", eclipseDuration, 14)
 	solarEclipseBar.auraFunction = eclipseAuraFunction
 	solarEclipseBar.colors = {
-		{255/255, 150/255, 0/255},
 		{150/255, 100/255, 0/255},
+		{255/255, 150/255, 0/255},
 	}
 
 	local lunarEclipseBar = evl_SliceDice:CreateBar("player", "Eclipse (Lunar)", eclipseDuration, 14)
 	lunarEclipseBar.auraFunction = eclipseAuraFunction
 	lunarEclipseBar.colors = {
-		{0/255, 150/255, 255/255},
 		{0/255, 100/255, 150/255},
+		{0/255, 150/255, 255/255},
 	}
 
 	-- Insect Swarm
