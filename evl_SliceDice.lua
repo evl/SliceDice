@@ -1,10 +1,19 @@
-evl_SliceDice = CreateFrame("Frame", nil, UIParent)
-evl_SliceDice.config = {
+local addonName, addon = ...
+
+addon.config = {
 	position = {"TOP", UIParent, "BOTTOM", 0, 180},
 	width = 250,
 	growUpwards = true,
-	barTexture = "Interface\\AddOns\\evl_SliceDice\\media\\HalW",
+	tallBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalT",
+	shortBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalW",
 }
+
+addon.playerClass = select(2, UnitClass("player"))
+
+local config = addon.config
+local frame = CreateFrame("Frame", nil, UIParent)
+local background = CreateFrame("Frame", nil, frame)
+local bars = {}
 
 local createGetter = function(property)
 	if type(property) == "function" then
@@ -16,32 +25,32 @@ end
 
 local handler
 local onEvent = function(self, event, ...)
-	handler = self[event]
+	handler = addon[event]
 	
 	if handler then
-		handler(self, event, ...)
+		handler(addon, event, ...)
 	else
-		self:UpdateMaxValues()
+		addon:UpdateMaxValues()
 	end
 end
 
 local onUpdate = function(self, elapsed)
-	self:UpdateBars(self, elapsed)
+	addon:UpdateBars(addon, elapsed)
 end
 
 local onVisibilityChanged = function(self)
-	evl_SliceDice:OrganizeBars()
+	addon:OrganizeBars()
 end
 
 local defaultAuraFunction = function(bar, unit, spellName, rank, filter)
 	return UnitAura(unit, spellName, rank, filter)
 end
 
-function evl_SliceDice:getTalentRank(tabIndex, talentIndex)
+function addon:getTalentRank(tabIndex, talentIndex)
 	return select(5, GetTalentInfo(tabIndex, talentIndex))
 end
 
-function evl_SliceDice:hasGlyph(id)
+function addon:hasGlyph(id)
 	for i = 1, 6 do
 		if select(3, GetGlyphSocketInfo(i)) == id then
 			return true
@@ -51,7 +60,7 @@ function evl_SliceDice:hasGlyph(id)
 	return false
 end
 
-function evl_SliceDice:getItemSetCount(set)
+function addon:getItemSetCount(set)
 	local count = 0
 	local link
 	
@@ -70,47 +79,47 @@ function evl_SliceDice:getItemSetCount(set)
 	return count
 end
 
-function evl_SliceDice:UNIT_AURA(event, unit)
+function addon:UNIT_AURA(event, unit)
 	self:ScanBars(unit)
 end
 
-function evl_SliceDice:PLAYER_ENTERING_WORLD(event)
-	self:SetWidth(self.config.width)
-	self:SetHeight(20)
-	self:SetPoint(unpack(self.config.position))
+function addon:PLAYER_ENTERING_WORLD(event)
+	frame:SetWidth(config.width)
+	frame:SetHeight(20)
+	frame:SetPoint(unpack(config.position))
 
 	self:UpdateMaxValues()
 	self:ScanBars(UnitInVehicle("player") and "vehicle" or "player")
 end
 
-function evl_SliceDice:UNIT_ENTERED_VEHICLE(event, unit)
+function addon:UNIT_ENTERED_VEHICLE(event, unit)
 	self:ScanBars("vehicle")
 end
 
-function evl_SliceDice:UNIT_EXITED_VEHICLE(event, unit)
+function addon:UNIT_EXITED_VEHICLE(event, unit)
 	self:ScanBars("vehicle")
 end
 
-function evl_SliceDice:PLAYER_TARGET_CHANGED(event)
+function addon:PLAYER_TARGET_CHANGED(event)
 	self:ScanBars("target")
 end
 
-function evl_SliceDice:UNIT_INVENTORY_CHANGED(event, unit)
+function addon:UNIT_INVENTORY_CHANGED(event, unit)
 	if unit == "player" then
 		self:UpdateMaxValues()
 	end
 end
 
-function evl_SliceDice:UpdateMaxValues()
-	for _, bar in ipairs(self.bars) do
+function addon:UpdateMaxValues()
+	for _, bar in ipairs(bars) do
 		bar:SetMinMaxValues(0, bar.maxDuration())
 	end
 end
 
 local timeLeft
 local timeFormat = "%.1f"
-function evl_SliceDice:UpdateBars(event, elapsed)
-	for _, bar in ipairs(self.bars) do
+function addon:UpdateBars(event, elapsed)
+	for _, bar in ipairs(bars) do
 		if bar:IsVisible() then
 			timeLeft = bar:GetValue()
 
@@ -127,10 +136,10 @@ function evl_SliceDice:UpdateBars(event, elapsed)
 	end
 end
 
-function evl_SliceDice:ScanBars(unit)
+function addon:ScanBars(unit)
 	local shown = false
 
-	for _, bar in ipairs(self.bars) do
+	for _, bar in ipairs(bars) do
 		self:ScanBar(bar, unit)
 
 		if not shown then
@@ -139,14 +148,14 @@ function evl_SliceDice:ScanBars(unit)
 	end
 	
 	if shown then
-		self:Show()
+		frame:Show()
 	else
-		self:Hide()
+		frame:Hide()
 	end
 end
 
 local name, count, expirationTime, auraFunction, color
-function evl_SliceDice:ScanBar(bar, unit)
+function addon:ScanBar(bar, unit)
 	if unit == bar.unit then
 		name, _, _, count, _, _, expirationTime = bar.auraFunction(bar, unit, bar.spellName(), nil, bar.auraFilter)
 		
@@ -162,39 +171,39 @@ function evl_SliceDice:ScanBar(bar, unit)
 	end
 end
 
-function evl_SliceDice:OrganizeBars()
-	local growUpwards = self.config.growUpwards
+function addon:OrganizeBars()
+	local growUpwards = config.growUpwards
 	local topBar
 	local bottomBar
 	
-	for _, bar in ipairs(self.bars) do
+	for _, bar in ipairs(bars) do
 		if bar:IsVisible() then
 			bar:ClearAllPoints()
 			
 			if growUpwards then
-				bar:SetPoint("BOTTOMLEFT", topBar or self, topBar and "TOPLEFT" or "BOTTOMLEFT", 0, topBar and 1 or 0)
+				bar:SetPoint("BOTTOMLEFT", topBar or frame, topBar and "TOPLEFT" or "BOTTOMLEFT", 0, topBar and 1 or 0)
 			
 				topBar = bar
 			else
-				bar:SetPoint("TOPLEFT", bottomBar or self, bottomBar and "BOTTOMLEFT" or "TOPLEFT", 0, bottomBar and -1 or 0)
+				bar:SetPoint("TOPLEFT", bottomBar or frame, bottomBar and "BOTTOMLEFT" or "TOPLEFT", 0, bottomBar and -1 or 0)
 			
 				bottomBar = bar
 			end
 
-			bar:SetPoint("RIGHT", self, "RIGHT")
+			bar:SetPoint("RIGHT", frame, "RIGHT")
 		end
 	end
 	
 	if topBar or bottomBar then
-		self.background:SetPoint("TOPLEFT", topBar or self, "TOPLEFT", -5, 5)
-		self.background:SetPoint("BOTTOMRIGHT", bottomBar or self, "BOTTOMRIGHT", 5, -5)
+		background:SetPoint("TOPLEFT", topBar or frame, "TOPLEFT", -5, 5)
+		background:SetPoint("BOTTOMRIGHT", bottomBar or frame, "BOTTOMRIGHT", 5, -5)
 	else
-		self:Hide()
+		frame:Hide()
 	end		
 end
 
-function evl_SliceDice:CreateBar(unit, spellName, maxDuration, height)
-	local bar = CreateFrame("StatusBar", nil, self)
+function addon:CreateBar(unit, spellName, maxDuration, height)
+	local bar = CreateFrame("StatusBar", nil, frame)
 
 	local label = bar:CreateFontString(nil, "OVERLAY")
 	label:SetFont(STANDARD_TEXT_FONT, 11)
@@ -205,7 +214,7 @@ function evl_SliceDice:CreateBar(unit, spellName, maxDuration, height)
 	label:SetJustifyH("LEFT")
 	
 	bar:SetHeight(height)
-	bar:SetStatusBarTexture(self.config.barTexture)
+	bar:SetStatusBarTexture(height > 8 and config.tallBarTexture or config.shortBarTexture)
 	bar:Hide()
 	bar:SetScript("OnHide", onVisibilityChanged)
 	bar:SetScript("OnShow", onVisibilityChanged)
@@ -218,37 +227,33 @@ function evl_SliceDice:CreateBar(unit, spellName, maxDuration, height)
 	bar.auraFunction = defaultAuraFunction
 	bar.auraFilter = (unit == "target" and "HARMFUL" or "HELPFUL") .. "|PLAYER"
 	
-	table.insert(self.bars, self.config.growUpwards and 1 or #self.bars + 1, bar)
+	table.insert(bars, config.growUpwards and 1 or #bars + 1, bar)
 
 	return bar
 end
 
-local background = CreateFrame("Frame", nil, evl_SliceDice)
 background:SetFrameStrata("BACKGROUND")
 background:SetBackdrop({
 	bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", 
-	edgeFile = "Interface\\AddOns\\evl_SliceDice\\media\\HalBorderSmall", 
+	edgeFile = "Interface\\AddOns\\" .. addonName .. "\\media\\HalBorderSmall", 
 	tile = true, tileSize = 8, edgeSize = 8, insets = {left = 4, right = 4, top = 4, bottom = 4}
 })
 background:SetBackdropColor(0, 0, 0)
 background:SetBackdropBorderColor(1, 1, 1, .7)
 
-evl_SliceDice.bars = {}
-evl_SliceDice.background = background
+frame:Hide()
+frame:SetScript("OnEvent", onEvent)
+frame:SetScript("OnUpdate", onUpdate)
 
-evl_SliceDice:Hide()
-evl_SliceDice:SetScript("OnEvent", onEvent)
-evl_SliceDice:SetScript("OnUpdate", onUpdate)
-
-evl_SliceDice:RegisterEvent("UNIT_AURA")
-evl_SliceDice:RegisterEvent("UNIT_ENTERED_VEHICLE")
-evl_SliceDice:RegisterEvent("UNIT_EXITED_VEHICLE")
-evl_SliceDice:RegisterEvent("PLAYER_TARGET_CHANGED")
-evl_SliceDice:RegisterEvent("PLAYER_ENTERING_WORLD")
-evl_SliceDice:RegisterEvent("PLAYER_ALIVE")
-evl_SliceDice:RegisterEvent("PLAYER_TALENT_UPDATE")
-evl_SliceDice:RegisterEvent("GLYPH_ADDED")
-evl_SliceDice:RegisterEvent("GLYPH_REMOVED")
-evl_SliceDice:RegisterEvent("GLYPH_UPDATED")
-evl_SliceDice:RegisterEvent("CHARACTER_POINTS_CHANGED")
-evl_SliceDice:RegisterEvent("UNIT_INVENTORY_CHANGED")
+frame:RegisterEvent("UNIT_AURA")
+frame:RegisterEvent("UNIT_ENTERED_VEHICLE")
+frame:RegisterEvent("UNIT_EXITED_VEHICLE")
+frame:RegisterEvent("PLAYER_TARGET_CHANGED")
+frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+frame:RegisterEvent("PLAYER_ALIVE")
+frame:RegisterEvent("PLAYER_TALENT_UPDATE")
+frame:RegisterEvent("GLYPH_ADDED")
+frame:RegisterEvent("GLYPH_REMOVED")
+frame:RegisterEvent("GLYPH_UPDATED")
+frame:RegisterEvent("CHARACTER_POINTS_CHANGED")
+frame:RegisterEvent("UNIT_INVENTORY_CHANGED")

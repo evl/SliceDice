@@ -1,4 +1,6 @@
-if select(2, UnitClass("player")) == "WARRIOR" then
+local addonName, addon = ...
+
+if addon.playerClass == "WARRIOR" then
 	local rendGlyph = 58385
 	local rendDuration = function()
 		local maxValue = 15

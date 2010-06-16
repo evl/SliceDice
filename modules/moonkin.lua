@@ -1,4 +1,6 @@
-if select(2, UnitClass("player")) == "DRUID" then
+local addonName, addon = ...
+
+if addon.playerClass == "DRUID" then
 	-- Eclipse
 	local eclipseDuration = 15
 	local eclipseCooldown = 15
@@ -18,14 +20,14 @@ if select(2, UnitClass("player")) == "DRUID" then
 		return nil
 	end
 	
-	local solarEclipseBar = evl_SliceDice:CreateBar("player", "Eclipse (Solar)", eclipseDuration, 14)
+	local solarEclipseBar = addon:CreateBar("player", "Eclipse (Solar)", eclipseDuration, 14)
 	solarEclipseBar.auraFunction = eclipseAuraFunction
 	solarEclipseBar.colors = {
 		{150/255, 100/255, 0/255},
 		{255/255, 150/255, 0/255},
 	}
 
-	local lunarEclipseBar = evl_SliceDice:CreateBar("player", "Eclipse (Lunar)", eclipseDuration, 14)
+	local lunarEclipseBar = addon:CreateBar("player", "Eclipse (Lunar)", eclipseDuration, 14)
 	lunarEclipseBar.auraFunction = eclipseAuraFunction
 	lunarEclipseBar.colors = {
 		{0/255, 100/255, 150/255},
@@ -34,7 +36,7 @@ if select(2, UnitClass("player")) == "DRUID" then
 
 	-- Insect Swarm
 	local insectSwarmDuration = 14
-	local insectSwarmBar = evl_SliceDice:CreateBar("target", "Insect Swarm", insectSwarmDuration, 14)
+	local insectSwarmBar = addon:CreateBar("target", "Insect Swarm", insectSwarmDuration, 14)
 	insectSwarmBar.colors = {{0/255, 150/255, 0/255}}
 
 	-- Moonfire
@@ -43,19 +45,19 @@ if select(2, UnitClass("player")) == "DRUID" then
 		local maxValue = 15
 
 		-- Glyph of Starfire
-		if evl_SliceDice:hasGlyph(starfireGlyph) then 
+		if addon:hasGlyph(starfireGlyph) then 
 			maxValue = maxValue + 9
 		end
 
 		return maxValue
 	end	
 	
-	local moonfireBar = evl_SliceDice:CreateBar("target", "Moonfire", moonfireDuration, 14)
+	local moonfireBar = addon:CreateBar("target", "Moonfire", moonfireDuration, 14)
 	moonfireBar.colors = {{150/255, 0/255, 255/255}}
 
 	-- Faerie Fire
 	local faerieFireDuration = 300
-	local faerieFireBar = evl_SliceDice:CreateBar("target", "Faerie Fire", faerieFireDuration, 6)
+	local faerieFireBar = addon:CreateBar("target", "Faerie Fire", faerieFireDuration, 6)
 	faerieFireBar.auraFilter = "HARMFUL"
 	faerieFireBar.label:Hide()
 end

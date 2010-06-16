@@ -1,22 +1,24 @@
-if select(2, UnitClass("player")) == "ROGUE" then
+local addonName, addon = ...
+
+if addon.playerClass == "ROGUE" then
 	local netherbladeSet = {29044, 29045, 29046, 29047, 29048}
 	local sliceAndDiceGlyph = 56810 -- http://www.wowhead.com/?spell=56810
 	local sliceAndDiceDuration = function()
 		local maxValue = 21
 	
 		-- Glyph
-		if evl_SliceDice:hasGlyph(sliceAndDiceGlyph) then
+		if addon:hasGlyph(sliceAndDiceGlyph) then
 			maxValue = maxValue + 3 
 		end
 	
 		-- Netherblade
-		local netherbladeCount = evl_SliceDice:getItemSetCount(netherbladeSet)
+		local netherbladeCount = addon:getItemSetCount(netherbladeSet)
 		if netherbladeCount > 1 then
 			maxValue = maxValue + 3
 		end
 	
 		-- Talent
-		local rank = evl_SliceDice:getTalentRank(2, 4)
+		local rank = addon:getTalentRank(2, 4)
 		maxValue = maxValue + (maxValue * (rank * 0.25))
 	
 		return maxValue
@@ -28,34 +30,33 @@ if select(2, UnitClass("player")) == "ROGUE" then
 		local maxValue = 16
 
 		-- Glyph of Rupture
-		if evl_SliceDice:hasGlyph(ruptureGlyph) then 
+		if addon:hasGlyph(ruptureGlyph) then 
 			maxValue = maxValue + 4
 		end
 		
 		-- Glyph of Backstab
-		if evl_SliceDice:hasGlyph(backstabGlyph) then 
+		if addon:hasGlyph(backstabGlyph) then 
 			maxValue = maxValue + 6
 		end
 		
 		-- Talent
-		local rank = evl_SliceDice:getTalentRank(1, 5)
+		local rank = addon:getTalentRank(1, 5)
 		maxValue = maxValue + (maxValue * (rank * 0.15))
 
 		return maxValue
 	end
 	
 	-- Slice and Dice
-	local sliceAndDiceBar = evl_SliceDice:CreateBar("player", "Slice and Dice", sliceAndDiceDuration, 19)
-	sliceAndDiceBar:SetStatusBarTexture("Interface\\AddOns\\evl_SliceDice\\media\\HalT")
+	local sliceAndDiceBar = addon:CreateBar("player", "Slice and Dice", sliceAndDiceDuration, 19)
 	
 	-- Hunger For Blood
 	local hungerDuration = 60
-	local hungerBar = evl_SliceDice:CreateBar("player", "Hunger For Blood", hungerDuration, 6)
+	local hungerBar = addon:CreateBar("player", "Hunger For Blood", hungerDuration, 6)
 	hungerBar.colors = {{200/255, 0/255, 0/255}}
 	hungerBar.label:Hide()
 
 	-- Rupture
-	local ruptureBar = evl_SliceDice:CreateBar("target", "Rupture", ruptureDuration, 6)
+	local ruptureBar = addon:CreateBar("target", "Rupture", ruptureDuration, 6)
 	ruptureBar.colors = {{100/255, 0/255, 0/255}}
 	ruptureBar.label:Hide()
 end

@@ -1,4 +1,6 @@
-if select(2, UnitClass("player")) == "DRUID" then
+local addonName, addon = ...
+
+if addon.playerClass == "DRUID" then
 	local heroesDreamwalkerSet = {39557, 39553, 39555, 39554, 39556} 	-- Tier7 10m
 	local valorousDreamwalkerSet = {40472, 40473, 40493, 40471, 40494}	-- Tier7 25m
 	local valorousNightsongSet = {45356, 45359, 45358, 45355, 45357}	-- Tier8 10m
@@ -16,17 +18,17 @@ if select(2, UnitClass("player")) == "DRUID" then
 		local maxValue = 12
 
 		-- Glyph of Rip
-		if evl_SliceDice:hasGlyph(ripGlyph) then -- http://www.wowhead.com/?spell=54818
+		if addon:hasGlyph(ripGlyph) then -- http://www.wowhead.com/?spell=54818
 			maxValue = maxValue + 4
 		end
 		
 		-- Glyph of Shred
-		if evl_SliceDice:hasGlyph(shredGlyph) then -- http://www.wowhead.com/?spell=54815
+		if addon:hasGlyph(shredGlyph) then -- http://www.wowhead.com/?spell=54815
 			maxValue = maxValue + 6
 		end
 
 		-- Dreamwalker set(s)
-		local dreamwalkerCount = evl_SliceDice:getItemSetCount(heroesDreamwalkerSet) + evl_SliceDice:getItemSetCount(valorousDreamwalkerSet)
+		local dreamwalkerCount = addon:getItemSetCount(heroesDreamwalkerSet) + addon:getItemSetCount(valorousDreamwalkerSet)
 		if dreamwalkerCount > 1 then
 			maxValue = maxValue + 3
 		end	
@@ -38,7 +40,7 @@ if select(2, UnitClass("player")) == "DRUID" then
 		local maxValue = 9
 		
 		-- Tier9 set(s)
-		local tier9Count = evl_SliceDice:getItemSetCount(conquerorsMalfurionSet) + evl_SliceDice:getItemSetCount(conquerorsRunetotemsSet) + evl_SliceDice:getItemSetCount(triumphantMalfurion245) + evl_SliceDice:getItemSetCount(triumphantMalfurion258) + evl_SliceDice:getItemSetCount(triumphantRunetotems245) + evl_SliceDice:getItemSetCount(triumphantRunetotems258)
+		local tier9Count = addon:getItemSetCount(conquerorsMalfurionSet) + addon:getItemSetCount(conquerorsRunetotemsSet) + addon:getItemSetCount(triumphantMalfurion245) + addon:getItemSetCount(triumphantMalfurion258) + addon:getItemSetCount(triumphantRunetotems245) + addon:getItemSetCount(triumphantRunetotems258)
 		if tier9Count > 1 then
 			maxValue = maxValue + 3
 		end	
@@ -50,7 +52,7 @@ if select(2, UnitClass("player")) == "DRUID" then
 		local maxValue = 34
 		
 		-- Nightsong set(s)
-		local nightsongCount = evl_SliceDice:getItemSetCount(valorousNightsongSet) + evl_SliceDice:getItemSetCount(conquerorsNightsongSet)
+		local nightsongCount = addon:getItemSetCount(valorousNightsongSet) + addon:getItemSetCount(conquerorsNightsongSet)
 		if nightsongCount > 3 then
 			maxValue = maxValue + 8
 		end
@@ -59,46 +61,44 @@ if select(2, UnitClass("player")) == "DRUID" then
 	end	
 	
 	-- Savage Roar
-	local savageRoarBar = evl_SliceDice:CreateBar("player", "Savage Roar", savageRoarDuration, 19)
-	savageRoarBar:SetStatusBarTexture("Interface\\AddOns\\evl_SliceDice\\media\\HalT")
+	local savageRoarBar = addon:CreateBar("player", "Savage Roar", savageRoarDuration, 19)
 
 	-- Rip
-	local ripBar = evl_SliceDice:CreateBar("target", "Rip", ripDuration, 6)
+	local ripBar = addon:CreateBar("target", "Rip", ripDuration, 6)
 	ripBar.colors = {{255/255, 0/255, 0/255}}
 	ripBar.label:Hide()
 
 	-- Rake
-	local rakeBar = evl_SliceDice:CreateBar("target", "Rake", rakeDuration, 6)
+	local rakeBar = addon:CreateBar("target", "Rake", rakeDuration, 6)
 	rakeBar.label:Hide()	
 	
 	-- Lacerate
 	local lacerateDuration = 15
-	local lacerateBar = evl_SliceDice:CreateBar("target", "Lacerate", lacerateDuration, 16)
-	lacerateBar:SetStatusBarTexture("Interface\\AddOns\\evl_SliceDice\\media\\HalT")
+	local lacerateBar = addon:CreateBar("target", "Lacerate", lacerateDuration, 16)
 	lacerateBar.colors = {{200/255, 0/255, 0/255}, {200/255, 100/255, 0/255}, {200/255, 200/255, 0/255}, {150/255, 200/255, 0/255}, {0/255, 200/255, 0/255}}
 	
 	-- Demoralizing Roar
 	local demoDuration = 30
-	local demoBar = evl_SliceDice:CreateBar("target", "Demoralizing Roar", demoDuration, 6)
+	local demoBar = addon:CreateBar("target", "Demoralizing Roar", demoDuration, 6)
 	demoBar.colors = {{200/255, 200/255, 0/255}}
 	demoBar.label:Hide()
 	
 	-- Mangle (Bear)
 	local mangleDuration = 60
-	local mangleBearBar = evl_SliceDice:CreateBar("target", "Mangle (Bear)", mangleDuration, 6)
+	local mangleBearBar = addon:CreateBar("target", "Mangle (Bear)", mangleDuration, 6)
 	mangleBearBar.colors = {{100/255, 0/255, 0/255}}
 	mangleBearBar.auraFilter = "HARMFUL"
 	mangleBearBar.label:Hide()
 
 	-- Mangle (Cat)
-	local mangleCatBar = evl_SliceDice:CreateBar("target", "Mangle (Cat)", mangleDuration, 6)
+	local mangleCatBar = addon:CreateBar("target", "Mangle (Cat)", mangleDuration, 6)
 	mangleCatBar.colors = {{100/255, 0/255, 0/255}}
 	mangleCatBar.auraFilter = "HARMFUL"
 	mangleCatBar.label:Hide()
 	
 	-- Faerie Fire (Feral)
 	local faerieFireDuration = 300
-	local faerieFireBar = evl_SliceDice:CreateBar("target", "Faerie Fire (Feral)", faerieFireDuration, 6)
+	local faerieFireBar = addon:CreateBar("target", "Faerie Fire (Feral)", faerieFireDuration, 6)
 	faerieFireBar.auraFilter = "HARMFUL"
 	faerieFireBar.label:Hide()
 end
