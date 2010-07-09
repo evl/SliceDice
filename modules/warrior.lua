@@ -6,7 +6,7 @@ if addon.playerClass == "WARRIOR" then
 		local maxValue = 15
 
 		-- Glyph
-		if evl_SliceDice:hasGlyph(rendGlyph) then
+		if addon:hasGlyph(rendGlyph) then
 			maxValue = maxValue + 3
 		end
 
@@ -14,12 +14,12 @@ if addon.playerClass == "WARRIOR" then
 	end
 	
 	-- Rend
-	local rendBar = evl_SliceDice:CreateBar("target", "Rend", rendDuration, 6)
+	local rendBar = addon:CreateBar("target", "Rend", rendDuration, 6)
 	rendBar.colors = {{255/255, 0/255, 0/255}}
 	rendBar.label:Hide()
 
 	-- Hamstring
 	local hamstringDuration = 15
-	local hamstringBar = evl_SliceDice:CreateBar("target", "Hamstring", hamstringDuration, 6)
+	local hamstringBar = addon:CreateBar("target", "Hamstring", hamstringDuration, 6)
 	hamstringBar.label:Hide()	
 end

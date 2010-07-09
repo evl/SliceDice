@@ -1,7 +1,8 @@
 local addonName, addon = ...
+local config = addon.config
 
-addon.config.position = {"TOP", UIParent, "BOTTOM", 0, 180} -- Anchor position, see http://www.wowwiki.com/API_Region_SetPoint
-addon.config.width = 250 -- Width of each bar
-addon.config.growUpwards = false -- Grow bars upwards
-addon.config.tallBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalT"  -- Texture to use for tall bars
-addon.config.shortBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalW"  -- Texture to use for short bars
+config.position = {"TOP", UIParent, "BOTTOM", 0, 180} -- Anchor position, see http://www.wowwiki.com/API_Region_SetPoint
+config.width = 250 -- Width of each bar
+config.growUpwards = false -- Grow bars upwards
+config.tallBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalT"  -- Texture to use for tall bars
+config.shortBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalW"  -- Texture to use for short bars
