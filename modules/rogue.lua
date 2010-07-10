@@ -48,15 +48,15 @@ if addon.playerClass == "ROGUE" then
 	
 	-- Slice and Dice
 	local sliceAndDiceBar = addon:CreateBar("player", "Slice and Dice", sliceAndDiceDuration, 19)
+
+	-- Rupture
+	local ruptureBar = addon:CreateBar("target", "Rupture", ruptureDuration, 6)
+	ruptureBar.colors = {{200/255, 0/255, 0/255}}
+	ruptureBar.label:Hide()
 	
 	-- Hunger For Blood
 	local hungerDuration = 60
 	local hungerBar = addon:CreateBar("player", "Hunger For Blood", hungerDuration, 6)
-	hungerBar.colors = {{200/255, 0/255, 0/255}}
+	hungerBar.colors = {{100/255, 0/255, 0/255}}
 	hungerBar.label:Hide()
-
-	-- Rupture
-	local ruptureBar = addon:CreateBar("target", "Rupture", ruptureDuration, 6)
-	ruptureBar.colors = {{100/255, 0/255, 0/255}}
-	ruptureBar.label:Hide()
 end
