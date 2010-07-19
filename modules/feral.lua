@@ -61,44 +61,44 @@ if addon.playerClass == "DRUID" then
 	end	
 	
 	-- Savage Roar
-	local savageRoarBar = addon:CreateBar("player", "Savage Roar", savageRoarDuration, 19)
+	local savageRoarBar = addon:CreateBar("player", 52610, savageRoarDuration, 19)
 
 	-- Rip
-	local ripBar = addon:CreateBar("target", "Rip", ripDuration, 6)
+	local ripBar = addon:CreateBar("target", 1079, ripDuration, 6)
 	ripBar.colors = {{255/255, 0/255, 0/255}}
 	ripBar.label:Hide()
 
 	-- Rake
-	local rakeBar = addon:CreateBar("target", "Rake", rakeDuration, 6)
+	local rakeBar = addon:CreateBar("target", 1822, rakeDuration, 6)
 	rakeBar.label:Hide()	
 	
 	-- Lacerate
 	local lacerateDuration = 15
-	local lacerateBar = addon:CreateBar("target", "Lacerate", lacerateDuration, 16)
+	local lacerateBar = addon:CreateBar("target", 33745, lacerateDuration, 16)
 	lacerateBar.colors = {{200/255, 0/255, 0/255}, {200/255, 100/255, 0/255}, {200/255, 200/255, 0/255}, {150/255, 200/255, 0/255}, {0/255, 200/255, 0/255}}
 	
 	-- Demoralizing Roar
 	local demoDuration = 30
-	local demoBar = addon:CreateBar("target", "Demoralizing Roar", demoDuration, 6)
+	local demoBar = addon:CreateBar("target", 99, demoDuration, 6)
 	demoBar.colors = {{200/255, 200/255, 0/255}}
 	demoBar.label:Hide()
 	
 	-- Mangle (Bear)
 	local mangleDuration = 60
-	local mangleBearBar = addon:CreateBar("target", "Mangle (Bear)", mangleDuration, 6)
+	local mangleBearBar = addon:CreateBar("target", 33987, mangleDuration, 6)
 	mangleBearBar.colors = {{100/255, 0/255, 0/255}}
 	mangleBearBar.auraFilter = "HARMFUL"
 	mangleBearBar.label:Hide()
 
 	-- Mangle (Cat)
-	local mangleCatBar = addon:CreateBar("target", "Mangle (Cat)", mangleDuration, 6)
+	local mangleCatBar = addon:CreateBar("target", 33983, mangleDuration, 6)
 	mangleCatBar.colors = {{100/255, 0/255, 0/255}}
 	mangleCatBar.auraFilter = "HARMFUL"
 	mangleCatBar.label:Hide()
 	
 	-- Faerie Fire (Feral)
 	local faerieFireDuration = 300
-	local faerieFireBar = addon:CreateBar("target", "Faerie Fire (Feral)", faerieFireDuration, 6)
+	local faerieFireBar = addon:CreateBar("target", 16857, faerieFireDuration, 6)
 	faerieFireBar.auraFilter = "HARMFUL"
 	faerieFireBar.label:Hide()
 end

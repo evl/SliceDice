@@ -202,7 +202,7 @@ function addon:OrganizeBars()
 	end		
 end
 
-function addon:CreateBar(unit, spellName, maxDuration, height)
+function addon:CreateBar(unit, spell, maxDuration, height)
 	local bar = CreateFrame("StatusBar", nil, frame)
 
 	local label = bar:CreateFontString(nil, "OVERLAY")
@@ -222,7 +222,7 @@ function addon:CreateBar(unit, spellName, maxDuration, height)
 	bar.label = label
 	bar.unit = unit
 	bar.colors = {{130/255, 122/255, 94/255}}
-	bar.spellName = createGetter(spellName)
+	bar.spellName = createGetter(type(spell) == "number" and GetSpellInfo(spell) or spell)
 	bar.maxDuration = createGetter(maxDuration)
 	bar.auraFunction = defaultAuraFunction
 	bar.auraFilter = (unit == "target" and "HARMFUL" or "HELPFUL") .. "|PLAYER"

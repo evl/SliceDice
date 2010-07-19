@@ -14,12 +14,12 @@ if addon.playerClass == "WARRIOR" then
 	end
 	
 	-- Rend
-	local rendBar = addon:CreateBar("target", "Rend", rendDuration, 6)
+	local rendBar = addon:CreateBar("target", 772, rendDuration, 6)
 	rendBar.colors = {{255/255, 0/255, 0/255}}
 	rendBar.label:Hide()
 
 	-- Hamstring
 	local hamstringDuration = 15
-	local hamstringBar = addon:CreateBar("target", "Hamstring", hamstringDuration, 6)
+	local hamstringBar = addon:CreateBar("target", 1715, hamstringDuration, 6)
 	hamstringBar.label:Hide()	
 end

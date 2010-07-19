@@ -20,14 +20,14 @@ if addon.playerClass == "DRUID" then
 		return nil
 	end
 	
-	local solarEclipseBar = addon:CreateBar("player", "Eclipse (Solar)", eclipseDuration, 14)
+	local solarEclipseBar = addon:CreateBar("player", 48517, eclipseDuration, 14)
 	solarEclipseBar.auraFunction = eclipseAuraFunction
 	solarEclipseBar.colors = {
 		{150/255, 100/255, 0/255},
 		{255/255, 150/255, 0/255},
 	}
 
-	local lunarEclipseBar = addon:CreateBar("player", "Eclipse (Lunar)", eclipseDuration, 14)
+	local lunarEclipseBar = addon:CreateBar("player", 48518, eclipseDuration, 14)
 	lunarEclipseBar.auraFunction = eclipseAuraFunction
 	lunarEclipseBar.colors = {
 		{0/255, 100/255, 150/255},
@@ -36,7 +36,7 @@ if addon.playerClass == "DRUID" then
 
 	-- Insect Swarm
 	local insectSwarmDuration = 14
-	local insectSwarmBar = addon:CreateBar("target", "Insect Swarm", insectSwarmDuration, 14)
+	local insectSwarmBar = addon:CreateBar("target", 5570, insectSwarmDuration, 14)
 	insectSwarmBar.colors = {{0/255, 150/255, 0/255}}
 
 	-- Moonfire
@@ -52,12 +52,12 @@ if addon.playerClass == "DRUID" then
 		return maxValue
 	end	
 	
-	local moonfireBar = addon:CreateBar("target", "Moonfire", moonfireDuration, 14)
+	local moonfireBar = addon:CreateBar("target", 8921, moonfireDuration, 14)
 	moonfireBar.colors = {{150/255, 0/255, 255/255}}
 
 	-- Faerie Fire
 	local faerieFireDuration = 300
-	local faerieFireBar = addon:CreateBar("target", "Faerie Fire", faerieFireDuration, 6)
+	local faerieFireBar = addon:CreateBar("target", 770, faerieFireDuration, 6)
 	faerieFireBar.auraFilter = "HARMFUL"
 	faerieFireBar.label:Hide()
 end
