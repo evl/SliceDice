@@ -2,7 +2,7 @@ local addonName, addon = ...
 
 if addon.playerClass == "DEATHKNIGHT" then
 	local scourgeStrikeGlyph = 58723
-	local diseaseDurationBonus = (addon:getTalentRank(3, 4) * 3) + (addon:hasGlyph(scourgeStrikeGlyph) and 9 or 0)
+	local diseaseDurationBonus = (addon:GetTalentRank(3, 4) * 3) + (addon:HasGlyph(scourgeStrikeGlyph) and 9 or 0)
 	
 	-- Blood Plague
 	local bloodPlagueDuration = 15

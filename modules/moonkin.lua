@@ -45,7 +45,7 @@ if addon.playerClass == "DRUID" then
 		local maxValue = 15
 
 		-- Glyph of Starfire
-		if addon:hasGlyph(starfireGlyph) then 
+		if addon:HasGlyph(starfireGlyph) then 
 			maxValue = maxValue + 9
 		end
 

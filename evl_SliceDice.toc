@@ -1,9 +1,10 @@
-## Interface: 30300
+## Interface: 40000
 ## Title: Evl's Slice Dice
 ## Author: Evl
 
 evl_SliceDice.lua
 config.lua
+utilities.lua
 
 modules\deathknight.lua
 modules\moonkin.lua

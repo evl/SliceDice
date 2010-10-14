@@ -6,7 +6,7 @@ if addon.playerClass == "WARRIOR" then
 		local maxValue = 15
 
 		-- Glyph
-		if addon:hasGlyph(rendGlyph) then
+		if addon:HasGlyph(rendGlyph) then
 			maxValue = maxValue + 3
 		end
 

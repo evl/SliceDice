@@ -6,11 +6,13 @@ addon.config = {
 	growUpwards = true,
 	tallBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalT",
 	shortBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalW",
+	borderTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalBorderSmall"
 }
 
 addon.playerClass = select(2, UnitClass("player"))
 
 local config = addon.config
+local timeFormat = "%.1f"
 local frame = CreateFrame("Frame", nil, UIParent)
 local background = CreateFrame("Frame", nil, frame)
 local bars = {}
@@ -23,9 +25,8 @@ local createGetter = function(property)
 	return function() return property end
 end
 
-local handler
 local onEvent = function(self, event, ...)
-	handler = addon[event]
+	local handler = addon[event]
 	
 	if handler then
 		handler(addon, event, ...)
@@ -46,44 +47,20 @@ local defaultAuraFunction = function(bar, unit, spellName, rank, filter)
 	return UnitAura(unit, spellName, rank, filter)
 end
 
-function addon:getTalentRank(tabIndex, talentIndex)
-	return select(5, GetTalentInfo(tabIndex, talentIndex))
-end
-
-function addon:hasGlyph(id)
-	for i = 1, 6 do
-		if select(3, GetGlyphSocketInfo(i)) == id then
-			return true
-		end
-	end
-	
-	return false
-end
-
-function addon:getItemSetCount(set)
-	local count = 0
-	local link
-	
-	for i = 1, 10 do
-		link = GetInventoryItemLink("player", i)
-
-		if link then
-			for _, itemId in pairs(set) do
-				if link:find(itemId) then
-					count = count + 1
-				end
-			end
-		end
-	end
-	
-	return count
-end
-
 function addon:UNIT_AURA(event, unit)
 	self:ScanBars(unit)
 end
 
 function addon:PLAYER_ENTERING_WORLD(event)
+	background:SetFrameStrata("BACKGROUND")
+	background:SetBackdrop({
+		bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", 
+		edgeFile = config.borderTexture, 
+		tile = true, tileSize = 8, edgeSize = 8, insets = {left = 4, right = 4, top = 4, bottom = 4}
+	})
+	background:SetBackdropColor(0, 0, 0)
+	background:SetBackdropBorderColor(1, 1, 1, .7)
+
 	frame:SetWidth(config.width)
 	frame:SetHeight(20)
 	frame:SetPoint(unpack(config.position))
@@ -116,12 +93,10 @@ function addon:UpdateMaxValues()
 	end
 end
 
-local timeLeft
-local timeFormat = "%.1f"
 function addon:UpdateBars(event, elapsed)
 	for _, bar in ipairs(bars) do
 		if bar:IsVisible() then
-			timeLeft = bar:GetValue()
+			local timeLeft = bar:GetValue()
 
 			if timeLeft > 0 then
 				bar:SetValue(timeLeft - elapsed)
@@ -154,13 +129,12 @@ function addon:ScanBars(unit)
 	end
 end
 
-local name, count, expirationTime, auraFunction, color
 function addon:ScanBar(bar, unit)
 	if unit == bar.unit then
-		name, _, _, count, _, _, expirationTime = bar.auraFunction(bar, unit, bar.spellName(), nil, bar.auraFilter)
+		local name, _, _, count, _, _, expirationTime = bar.auraFunction(bar, unit, bar.spellName(), nil, bar.auraFilter)
 		
 		if name then
-			color = bar.colors[math.max(1, math.min(#bar.colors, count))]
+			local color = bar.colors[math.max(1, math.min(#bar.colors, count))]
 		
 			bar:SetValue(expirationTime - GetTime())
 			bar:SetStatusBarColor(unpack(color))
@@ -231,15 +205,6 @@ function addon:CreateBar(unit, spell, maxDuration, height)
 
 	return bar
 end
-
-background:SetFrameStrata("BACKGROUND")
-background:SetBackdrop({
-	bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", 
-	edgeFile = "Interface\\AddOns\\" .. addonName .. "\\media\\HalBorderSmall", 
-	tile = true, tileSize = 8, edgeSize = 8, insets = {left = 4, right = 4, top = 4, bottom = 4}
-})
-background:SetBackdropColor(0, 0, 0)
-background:SetBackdropBorderColor(1, 1, 1, .7)
 
 frame:Hide()
 frame:SetScript("OnEvent", onEvent)

@@ -7,18 +7,18 @@ if addon.playerClass == "ROGUE" then
 		local maxValue = 21
 	
 		-- Glyph
-		if addon:hasGlyph(sliceAndDiceGlyph) then
+		if addon:HasGlyph(sliceAndDiceGlyph) then
 			maxValue = maxValue + 3 
 		end
 	
 		-- Netherblade
-		local netherbladeCount = addon:getItemSetCount(netherbladeSet)
+		local netherbladeCount = addon:GetItemSetCount(netherbladeSet)
 		if netherbladeCount > 1 then
 			maxValue = maxValue + 3
 		end
 	
 		-- Talent
-		local rank = addon:getTalentRank(2, 4)
+		local rank = addon:GetTalentRank(2, 4)
 		maxValue = maxValue + (maxValue * (rank * 0.25))
 	
 		return maxValue
@@ -30,17 +30,17 @@ if addon.playerClass == "ROGUE" then
 		local maxValue = 16
 
 		-- Glyph of Rupture
-		if addon:hasGlyph(ruptureGlyph) then 
+		if addon:HasGlyph(ruptureGlyph) then 
 			maxValue = maxValue + 4
 		end
 		
 		-- Glyph of Backstab
-		if addon:hasGlyph(backstabGlyph) then 
+		if addon:HasGlyph(backstabGlyph) then 
 			maxValue = maxValue + 6
 		end
 		
 		-- Talent
-		local rank = addon:getTalentRank(1, 5)
+		local rank = addon:GetTalentRank(1, 5)
 		maxValue = maxValue + (maxValue * (rank * 0.15))
 
 		return maxValue

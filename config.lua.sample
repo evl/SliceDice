@@ -6,3 +6,4 @@ config.width = 250 -- Width of each bar
 config.growUpwards = false -- Grow bars upwards
 config.tallBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalT"  -- Texture to use for tall bars
 config.shortBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalW"  -- Texture to use for short bars
+config.borderTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalBorderSmall"  -- Texture to use for short bars

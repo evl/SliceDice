@@ -18,17 +18,17 @@ if addon.playerClass == "DRUID" then
 		local maxValue = 12
 
 		-- Glyph of Rip
-		if addon:hasGlyph(ripGlyph) then -- http://www.wowhead.com/?spell=54818
+		if addon:HasGlyph(ripGlyph) then -- http://www.wowhead.com/?spell=54818
 			maxValue = maxValue + 4
 		end
 		
 		-- Glyph of Shred
-		if addon:hasGlyph(shredGlyph) then -- http://www.wowhead.com/?spell=54815
+		if addon:HasGlyph(shredGlyph) then -- http://www.wowhead.com/?spell=54815
 			maxValue = maxValue + 6
 		end
 
 		-- Dreamwalker set(s)
-		local dreamwalkerCount = addon:getItemSetCount(heroesDreamwalkerSet) + addon:getItemSetCount(valorousDreamwalkerSet)
+		local dreamwalkerCount = addon:GetItemSetCount(heroesDreamwalkerSet) + addon:GetItemSetCount(valorousDreamwalkerSet)
 		if dreamwalkerCount > 1 then
 			maxValue = maxValue + 3
 		end	
@@ -40,7 +40,7 @@ if addon.playerClass == "DRUID" then
 		local maxValue = 9
 		
 		-- Tier9 set(s)
-		local tier9Count = addon:getItemSetCount(conquerorsMalfurionSet) + addon:getItemSetCount(conquerorsRunetotemsSet) + addon:getItemSetCount(triumphantMalfurion245) + addon:getItemSetCount(triumphantMalfurion258) + addon:getItemSetCount(triumphantRunetotems245) + addon:getItemSetCount(triumphantRunetotems258)
+		local tier9Count = addon:GetItemSetCount(conquerorsMalfurionSet) + addon:GetItemSetCount(conquerorsRunetotemsSet) + addon:GetItemSetCount(triumphantMalfurion245) + addon:GetItemSetCount(triumphantMalfurion258) + addon:GetItemSetCount(triumphantRunetotems245) + addon:GetItemSetCount(triumphantRunetotems258)
 		if tier9Count > 1 then
 			maxValue = maxValue + 3
 		end	
@@ -52,7 +52,7 @@ if addon.playerClass == "DRUID" then
 		local maxValue = 34
 		
 		-- Nightsong set(s)
-		local nightsongCount = addon:getItemSetCount(valorousNightsongSet) + addon:getItemSetCount(conquerorsNightsongSet)
+		local nightsongCount = addon:GetItemSetCount(valorousNightsongSet) + addon:GetItemSetCount(conquerorsNightsongSet)
 		if nightsongCount > 3 then
 			maxValue = maxValue + 8
 		end
@@ -70,6 +70,7 @@ if addon.playerClass == "DRUID" then
 
 	-- Rake
 	local rakeBar = addon:CreateBar("target", 1822, rakeDuration, 6)
+	rakeBar.colors = {{255/255, 50/255, 50/255}}
 	rakeBar.label:Hide()	
 	
 	-- Lacerate
