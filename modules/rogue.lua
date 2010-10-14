@@ -19,13 +19,12 @@ if addon.playerClass == "ROGUE" then
 	
 		-- Talent
 		local rank = addon:GetTalentRank(2, 4)
-		maxValue = maxValue + (maxValue * (rank * 0.25))
+		maxValue = maxValue * (1 + (rank * 0.25))
 	
 		return maxValue
 	end
 	
 	local ruptureGlyph = 56801 -- http://www.wowhead.com/?spell=56801
-	local backstabGlyph = 56800 -- http://www.wowhead.com/?spell=56800
 	local ruptureDuration = function()
 		local maxValue = 16
 
@@ -34,16 +33,17 @@ if addon.playerClass == "ROGUE" then
 			maxValue = maxValue + 4
 		end
 		
-		-- Glyph of Backstab
-		if addon:HasGlyph(backstabGlyph) then 
-			maxValue = maxValue + 6
-		end
-		
-		-- Talent
-		local rank = addon:GetTalentRank(1, 5)
-		maxValue = maxValue + (maxValue * (rank * 0.15))
-
 		return maxValue
+	end
+	
+	local vendettaGlyph = 63249 -- http://www.wowhead.com/spell=63249
+	local vendettaDuration = function()
+		local maxValue = 30
+		
+		-- Glyph of Vendetta
+		if addon:HasGlyph(vendettaGlyph) then 
+			maxValue = maxValue * 1.2
+		end
 	end
 	
 	-- Slice and Dice
@@ -54,9 +54,15 @@ if addon.playerClass == "ROGUE" then
 	ruptureBar.colors = {{200/255, 0/255, 0/255}}
 	ruptureBar.label:Hide()
 	
-	-- Hunger For Blood
-	local hungerDuration = 60
-	local hungerBar = addon:CreateBar("player", 51662, hungerDuration, 6)
-	hungerBar.colors = {{100/255, 0/255, 0/255}}
-	hungerBar.label:Hide()
+	-- Revealing Strike
+	local revealingDuration = 15
+	local revealingBar = addon:CreateBar("target", 84617, revealingDuration, 6)
+	revealingBar.colors = {{100/255, 0/255, 0/255}}
+	revealingBar.label:Hide()
+
+	-- Vendetta
+	local vendettaDuration = 30
+	local vendettaBar = addon:CreateBar("target", 79140, vendettaDuration, 6)
+	vendettaBar.colors = {{100/255, 0/255, 0/255}}
+	vendettaBar.label:Hide()
 end

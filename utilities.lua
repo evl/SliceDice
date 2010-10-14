@@ -9,18 +9,14 @@ function addon:HasTalentRank(tabIndex, talentIndex, rankRequired)
 end
 
 function addon:HasGlyph(id)
-	for i = 1, 6 do
-		local _, _, glyphSpell = GetGlyphSocketInfo(i)
-		
-		if glyphSpell == id then
+	for i = 1, 9 do
+		if select(3, GetGlyphSocketInfo(i)) == id then
 			return true
 		end
 	end
 	
 	return false
 end
-
-
 
 function addon:GetItemSetCount(set)
 	local count = 0
