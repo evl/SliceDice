@@ -65,4 +65,10 @@ if addon.playerClass == "ROGUE" then
 	local vendettaBar = addon:CreateBar("target", 79140, vendettaDuration, 6)
 	vendettaBar.colors = {{100/255, 0/255, 0/255}}
 	vendettaBar.label:Hide()
+	
+	-- Recuperate
+	local recuperateDuration = 30
+	local recuperateBar = addon:CreateBar("player", 73651, recuperateDuration, 6)
+	recuperateBar.colors = {{0/255, 255/255, 0/255}}
+	recuperateBar.label:Hide()
 end
