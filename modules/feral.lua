@@ -76,7 +76,7 @@ if addon.playerClass == "DRUID" then
 	-- Lacerate
 	local lacerateDuration = 15
 	local lacerateBar = addon:CreateBar("target", 33745, lacerateDuration, 16)
-	lacerateBar.colors = {{200/255, 0/255, 0/255}, {200/255, 100/255, 0/255}, {200/255, 200/255, 0/255}, {150/255, 200/255, 0/255}, {0/255, 200/255, 0/255}}
+	lacerateBar.colors = {{200/255, 0/255, 0/255}, {200/255, 200/255, 0/255}, {0/255, 200/255, 0/255}}
 	
 	-- Demoralizing Roar
 	local demoDuration = 30
