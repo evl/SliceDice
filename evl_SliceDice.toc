@@ -9,6 +9,7 @@ utilities.lua
 modules\deathknight.lua
 modules\moonkin.lua
 modules\feral.lua
+modules\paladin.lua
 modules\rogue.lua
 modules\warrior.lua
 
