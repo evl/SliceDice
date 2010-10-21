@@ -10,7 +10,7 @@ end
 
 function addon:HasGlyph(id)
 	for i = 1, 9 do
-		if select(3, GetGlyphSocketInfo(i)) == id then
+		if select(4, GetGlyphSocketInfo(i)) == id then
 			return true
 		end
 	end
