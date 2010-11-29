@@ -86,7 +86,7 @@ if addon.playerClass == "DRUID" then
 	
 	-- Mangle (Bear)
 	local mangleDuration = 60
-	local mangleBearBar = addon:CreateBar("target", 33987, mangleDuration, 6)
+	local mangleBearBar = addon:CreateBar("target", 33878, mangleDuration, 6)
 	mangleBearBar.colors = {{100/255, 0/255, 0/255}}
 	mangleBearBar.auraFilter = "HARMFUL"
 	mangleBearBar.label:Hide()

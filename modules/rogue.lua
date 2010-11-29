@@ -44,6 +44,20 @@ if addon.playerClass == "ROGUE" then
 		if addon:HasGlyph(vendettaGlyph) then 
 			maxValue = maxValue * 1.2
 		end
+		
+		return maxValue
+	end
+	
+	local garroteGlyph = 56812 -- http://www.wowhead.com/spell=56812
+	local garroteDuration = function()
+		local maxValue = 18
+		
+		-- Glyph of Garrote
+		if addon:HasGlyph(garroteGlyph) then 
+			maxValue = maxValue + 2
+		end
+
+		return maxValue
 	end
 	
 	-- Slice and Dice
@@ -65,6 +79,11 @@ if addon.playerClass == "ROGUE" then
 	local vendettaBar = addon:CreateBar("target", 79140, vendettaDuration, 6)
 	vendettaBar.colors = {{100/255, 0/255, 0/255}}
 	vendettaBar.label:Hide()
+
+	-- Garotte
+	local garroteBar = addon:CreateBar("target", 703, garroteDuration, 6)
+	garroteBar.colors = {{150/255, 0/255, 0/255}}
+	garroteBar.label:Hide()
 	
 	-- Recuperate
 	local recuperateDuration = 30
