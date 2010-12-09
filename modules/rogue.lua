@@ -67,7 +67,13 @@ if addon.playerClass == "ROGUE" then
 	local ruptureBar = addon:CreateBar("target", 1943, ruptureDuration, 6)
 	ruptureBar.colors = {{200/255, 0/255, 0/255}}
 	ruptureBar.label:Hide()
-	
+
+	-- Envenom
+	local envenomDuration = 6
+	local envenomBar = addon:CreateBar("player", 32645, envenomDuration, 6)
+	envenomBar.colors = {{0/255, 255/255, 0/255}}
+	envenomBar.label:Hide()
+
 	-- Revealing Strike
 	local revealingDuration = 15
 	local revealingBar = addon:CreateBar("target", 84617, revealingDuration, 6)
@@ -77,7 +83,7 @@ if addon.playerClass == "ROGUE" then
 	-- Vendetta
 	local vendettaDuration = 30
 	local vendettaBar = addon:CreateBar("target", 79140, vendettaDuration, 6)
-	vendettaBar.colors = {{100/255, 0/255, 0/255}}
+	vendettaBar.colors = {{150/255, 150/255, 0/255}}
 	vendettaBar.label:Hide()
 
 	-- Garotte
@@ -88,6 +94,6 @@ if addon.playerClass == "ROGUE" then
 	-- Recuperate
 	local recuperateDuration = 30
 	local recuperateBar = addon:CreateBar("player", 73651, recuperateDuration, 6)
-	recuperateBar.colors = {{0/255, 255/255, 0/255}}
+	recuperateBar.colors = {{0/255, 150/255, 0/255}}
 	recuperateBar.label:Hide()
 end
