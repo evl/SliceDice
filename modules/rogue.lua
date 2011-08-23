@@ -96,4 +96,22 @@ if addon.playerClass == "ROGUE" then
 	local recuperateBar = addon:CreateBar("player", 73651, recuperateDuration, 6)
 	recuperateBar.colors = {{0/255, 150/255, 0/255}}
 	recuperateBar.label:Hide()
+	
+	-- Feint
+	local feintDuration = 6
+	local feintBar = addon:CreateBar("player", 1966, feintDuration, 3)
+	feintBar.colors = {{21/255, 191/255, 180/255}}
+	feintBar.label:Hide()
+
+	-- Cloak of Shadows
+	local closDuration = 5
+	local closBar = addon:CreateBar("player", 31224, closDuration, 3)
+	closBar.colors = {{175/255, 27/255, 224/255}}
+	closBar.label:Hide()
+
+	-- Vanish
+	local vanishDuration = 3
+	local vanishBar = addon:CreateBar("player", 1856, vanishDuration, 3)
+	vanishBar.colors = {{100/255, 100/255, 100/255}}
+	vanishBar.label:Hide()
 end
