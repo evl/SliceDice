@@ -121,4 +121,14 @@ if addon.playerClass == "ROGUE" then
 		vanishBar.colors = config.vanishColor
 		vanishBar.label:Hide()
 	end
+	
+	local feintCooldown = 10
+	local feintCooldownBar = addon:CreateCooldownBar(1966, feintCooldown, 12)
+	feintCooldownBar.color = config.feintColor
+	feintCooldownBar.label:Show()
+	
+	local vendettaCooldown = 120
+	local vendettaCooldownBar = addon:CreateCooldownBar(79140, vendettaCooldown, 12)
+	vendettaCooldownBar.color = config.vendettaColor
+	vendettaCooldownBar.label:Show()
 end
