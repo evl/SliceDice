@@ -6,7 +6,19 @@ addon.config = {
 	growUpwards = false,
 	tallBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalT",
 	shortBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalW",
-	borderTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalBorderSmall"
+	borderTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalBorderSmall",
+	envenomColor = {{0/255, 255/255, 0/255}},
+	vendettaColor = {{150/255, 150/255, 0/255}},
+	revealingColor = {{100/255, 0/255, 0/255}},
+	ruptureColor = {{200/255, 0/255, 0/255}},
+	garotteColor = {{150/255, 0/255, 0/255}},
+	recuperateColor = {{0/255, 150/255, 0/255}},
+	feintColor = {{21/255, 191/255, 180/255}},
+	closColor = {{175/255, 27/255, 224/255}},
+	vanishColor = {{100/255, 100/255, 100/255}},
+	showFeintBar = false,
+	showClosBar = false,
+	showVanishBar = false
 }
 
 addon.playerClass = select(2, UnitClass("player"))

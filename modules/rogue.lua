@@ -1,6 +1,7 @@
 local addonName, addon = ...
 
 if addon.playerClass == "ROGUE" then
+	local config = addon.config
 	local netherbladeSet = {29044, 29045, 29046, 29047, 29048}
 	local sliceAndDiceGlyph = 56810 -- http://www.wowhead.com/?spell=56810
 	local sliceAndDiceDuration = function()
@@ -65,53 +66,59 @@ if addon.playerClass == "ROGUE" then
 
 	-- Rupture
 	local ruptureBar = addon:CreateBar("target", 1943, ruptureDuration, 6)
-	ruptureBar.colors = {{200/255, 0/255, 0/255}}
+	ruptureBar.colors = config.ruptureColor
 	ruptureBar.label:Hide()
 
 	-- Envenom
 	local envenomDuration = 6
 	local envenomBar = addon:CreateBar("player", 32645, envenomDuration, 6)
-	envenomBar.colors = {{0/255, 255/255, 0/255}}
+	envenomBar.colors = config.envenomColor
 	envenomBar.label:Hide()
 
 	-- Revealing Strike
 	local revealingDuration = 15
 	local revealingBar = addon:CreateBar("target", 84617, revealingDuration, 6)
-	revealingBar.colors = {{100/255, 0/255, 0/255}}
+	revealingBar.colors = config.revealingColor
 	revealingBar.label:Hide()
 
 	-- Vendetta
 	local vendettaDuration = 30
 	local vendettaBar = addon:CreateBar("target", 79140, vendettaDuration, 6)
-	vendettaBar.colors = {{150/255, 150/255, 0/255}}
+	vendettaBar.colors = config.vendettaColor
 	vendettaBar.label:Hide()
 
 	-- Garotte
 	local garroteBar = addon:CreateBar("target", 703, garroteDuration, 6)
-	garroteBar.colors = {{150/255, 0/255, 0/255}}
+	garroteBar.colors = config.garotteColor
 	garroteBar.label:Hide()
 	
 	-- Recuperate
 	local recuperateDuration = 30
 	local recuperateBar = addon:CreateBar("player", 73651, recuperateDuration, 6)
-	recuperateBar.colors = {{0/255, 150/255, 0/255}}
+	recuperateBar.colors = config.recuperateColor
 	recuperateBar.label:Hide()
 	
 	-- Feint
-	local feintDuration = 6
-	local feintBar = addon:CreateBar("player", 1966, feintDuration, 3)
-	feintBar.colors = {{21/255, 191/255, 180/255}}
-	feintBar.label:Hide()
+	if config.showFeintBar then
+		local feintDuration = 6
+		local feintBar = addon:CreateBar("player", 1966, feintDuration, 3)
+		feintBar.colors = config.feintColor
+		feintBar.label:Hide()
+	end
 
 	-- Cloak of Shadows
-	local closDuration = 5
-	local closBar = addon:CreateBar("player", 31224, closDuration, 3)
-	closBar.colors = {{175/255, 27/255, 224/255}}
-	closBar.label:Hide()
+	if config.showClosBar then
+		local closDuration = 5
+		local closBar = addon:CreateBar("player", 31224, closDuration, 3)
+		closBar.colors = config.closColor
+		closBar.label:Hide()
+	end
 
 	-- Vanish
-	local vanishDuration = 3
-	local vanishBar = addon:CreateBar("player", 1856, vanishDuration, 3)
-	vanishBar.colors = {{100/255, 100/255, 100/255}}
-	vanishBar.label:Hide()
+	if config.showVanishBar then
+		local vanishDuration = 3
+		local vanishBar = addon:CreateBar("player", 1856, vanishDuration, 3)
+		vanishBar.colors = config.vanishColor
+		vanishBar.label:Hide()
+	end
 end
