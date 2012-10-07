@@ -4,6 +4,7 @@ if addon.playerClass == "ROGUE" then
 	local config = addon.config
 	local netherbladeSet = {29044, 29045, 29046, 29047, 29048}
 	
+	-- Slice and Dice
 	local sliceAndDiceDuration = function()
 		local maxValue = 36
 	
@@ -16,36 +17,26 @@ if addon.playerClass == "ROGUE" then
 		return maxValue
 	end
 	
-	local ruptureGlyph = 56801 -- http://www.wowhead.com/?spell=56801
-	local ruptureDuration = function()
-		local maxValue = 16
-
-		-- Glyph of Rupture
-		if addon:HasGlyph(ruptureGlyph) then 
-			maxValue = maxValue + 4
-		end
-		
-		return maxValue
-	end
-	
+	-- Vendetta
 	local vendettaGlyph = 63249 -- http://www.wowhead.com/spell=63249
 	local vendettaDuration = function()
-		local maxValue = 30
+		local maxValue = 20
 		
 		-- Glyph of Vendetta
 		if addon:HasGlyph(vendettaGlyph) then 
-			maxValue = maxValue * 1.2
+			maxValue = maxValue + 10
 		end
 		
 		return maxValue
 	end
 	
-	local garroteGlyph = 56812 -- http://www.wowhead.com/spell=56812
-	local garroteDuration = function()
-		local maxValue = 18
+	-- Feint
+	local feintGlyph = 56804 -- http://www.wowhead.com/spell=56804
+	local feintDuration = function()
+		local maxValue = 5
 		
-		-- Glyph of Garrote
-		if addon:HasGlyph(garroteGlyph) then 
+		-- Glyph of Feint
+		if addon:HasGlyph(feintGlyph) then
 			maxValue = maxValue + 2
 		end
 
@@ -56,6 +47,7 @@ if addon.playerClass == "ROGUE" then
 	local sliceAndDiceBar = addon:CreateBar("player", 5171, sliceAndDiceDuration, 19)
 
 	-- Rupture
+	local ruptureDuration = 24
 	local ruptureBar = addon:CreateBar("target", 1943, ruptureDuration, 6)
 	ruptureBar.colors = config.ruptureColor
 	ruptureBar.label:Hide()
@@ -79,6 +71,7 @@ if addon.playerClass == "ROGUE" then
 	vendettaBar.label:Hide()
 
 	-- Garotte
+	local garroteDuration = 18
 	local garroteBar = addon:CreateBar("target", 703, garroteDuration, 6)
 	garroteBar.colors = config.garotteColor
 	garroteBar.label:Hide()
@@ -91,7 +84,6 @@ if addon.playerClass == "ROGUE" then
 	
 	-- Feint
 	if config.showFeintBar then
-		local feintDuration = 6
 		local feintBar = addon:CreateBar("player", 1966, feintDuration, 3)
 		feintBar.colors = config.feintColor
 		feintBar.label:Hide()
