@@ -3,24 +3,15 @@ local addonName, addon = ...
 if addon.playerClass == "ROGUE" then
 	local config = addon.config
 	local netherbladeSet = {29044, 29045, 29046, 29047, 29048}
-	local sliceAndDiceGlyph = 56810 -- http://www.wowhead.com/?spell=56810
-	local sliceAndDiceDuration = function()
-		local maxValue = 21
 	
-		-- Glyph
-		if addon:HasGlyph(sliceAndDiceGlyph) then
-			maxValue = maxValue + 3 
-		end
+	local sliceAndDiceDuration = function()
+		local maxValue = 36
 	
 		-- Netherblade
 		local netherbladeCount = addon:GetItemSetCount(netherbladeSet)
 		if netherbladeCount > 1 then
 			maxValue = maxValue + 3
 		end
-	
-		-- Talent
-		local rank = addon:GetTalentRank(2, 4)
-		maxValue = maxValue * (1 + (rank * 0.25))
 	
 		return maxValue
 	end
