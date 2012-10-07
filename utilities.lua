@@ -1,7 +1,8 @@
 local addonName, addon = ...
 
 function addon:GetTalentRank(tabIndex, talentIndex)
-	return select(5, GetTalentInfo(tabIndex, talentIndex))
+	local _, _, _, _, rank = GetTalentInfo(tabIndex, talentIndex)
+	return rank
 end
 
 function addon:HasTalentRank(tabIndex, talentIndex, rankRequired)
@@ -10,7 +11,8 @@ end
 
 function addon:HasGlyph(id)
 	for i = 1, GetNumGlyphSockets() do
-		if select(4, GetGlyphSocketInfo(i)) == id then
+		local _, _, _, spellId = GetGlyphSocketInfo(i)
+		if spellId == id then
 			return true
 		end
 	end

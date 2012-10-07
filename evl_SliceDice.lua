@@ -24,7 +24,8 @@ addon.config = {
 	cooldownBarGrowUpwards = false
 }
 
-addon.playerClass = select(2, UnitClass("player"))
+local _, playerClass = UnitClass("player")
+addon.playerClass = playerClass
 
 local config = addon.config
 local timeFormat = "%.1f"
@@ -220,7 +221,9 @@ function addon:CheckCooldowns(addon, event, ...)
 	local name, _, rank, foo, bar = ...
 	DEFAULT_CHAT_FRAME:AddMessage("> spell cast: " .. name,1,0,0)
 	local start, duration, enabled = GetSpellCooldown(name)
-	if enabled == 0 then
+	if start == nil or duration == nil or enabled == nil then
+		DEFAULT_CHAT_FRAME:AddMessage("> Borked " ,1,0,0)
+	elseif enabled == 0 then
 		DEFAULT_CHAT_FRAME:AddMessage("> active " .. duration,1,0,0)
 	elseif (start > 0 and duration > 0) then
 		local expirationTime = start + duration
