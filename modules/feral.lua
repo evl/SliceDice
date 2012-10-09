@@ -12,6 +12,10 @@ if addon.playerClass == "DRUID" then
 	local triumphantRunetotems245  = {48194, 48197, 48196, 48193, 48195}	-- Tier9 iLvl245 Horde
 	local triumphantRunetotems258 = {48201, 48198, 48199, 48202, 48200}	-- Tier9 iLvl258 Horde
 
+	if addon.config.debug then
+		DEFAULT_CHAT_FRAME:AddMessage("> Loaded " .. addon.playerClass .. " module" ,1,0,0)
+	end
+
 	local ripGlyph = 54818
 	local shredGlyph = 54815
 	local ripDuration = function()

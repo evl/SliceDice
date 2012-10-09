@@ -1,6 +1,11 @@
 local addonName, addon = ...
 
 if addon.playerClass == "PALADIN" then
+
+	if config.debug then
+		DEFAULT_CHAT_FRAME:AddMessage("> Loaded " .. addon.playerClass .. " module" ,1,0,0)
+	end
+
 	-- Sacred Duty
 	local sacredDutyDuration = 15
 	local sacredDutyBar = addon:CreateBar("player", 85433, sacredDutyDuration, 6)

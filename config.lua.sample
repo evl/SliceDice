@@ -7,3 +7,17 @@ config.growUpwards = false -- Grow bars upwards
 config.tallBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalT"  -- Texture to use for tall bars
 config.shortBarTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalW"  -- Texture to use for short bars
 config.borderTexture = "Interface\\AddOns\\" .. addonName .. "\\media\\HalBorderSmall"  -- Texture to use for short bars
+
+config.envenomColor = {{0/255, 255/255, 0/255}} -- color for the Envenom bar
+config.vendettaColor = {{150/255, 150/255, 0/255}} -- color for the Vendetta bar
+config.revealingColor = {{100/255, 0/255, 0/255}} -- color for the Revealing Strike bar
+config.ruptureColor = {{200/255, 0/255, 0/255}} -- color for the Rupture bar
+config.garotteColor = {{150/255, 0/255, 0/255}} -- color for the Garotte bar
+config.recuperateColor = {{0/255, 150/255, 0/255}} -- color for the Recuperate bar
+config.feintColor = {{21/255, 191/255, 180/255}} -- color for the Feint bar
+config.closColor = {{175/255, 27/255, 224/255}} -- color for the Cloak of Shadows bar
+config.vanishColor = {{100/255, 100/255, 100/255}} -- color for the Vanish bar
+
+config.showFeintBar = false -- show a bar when Feint is active
+config.showClosBar = false -- show a bar when Cloak of Shadows is active
+config.showVanishBar = false -- show a bar when Vanish is active
