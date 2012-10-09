@@ -1,6 +1,10 @@
 local addonName, addon = ...
 
 if addon.playerClass == "DEATHKNIGHT" then
+
+	if config.debug then
+		DEFAULT_CHAT_FRAME:AddMessage("> Loaded " .. addon.playerClass .. " module" ,1,0,0)
+	end
 	
 	-- Blood Plague
 	local bloodPlagueDuration = 30

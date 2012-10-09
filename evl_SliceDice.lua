@@ -219,24 +219,24 @@ end
 
 function addon:CheckCooldowns(addon, event, ...)
 	local name, _, rank, foo, bar = ...
-	DEFAULT_CHAT_FRAME:AddMessage("> spell cast: " .. name,1,0,0)
+	-- DEFAULT_CHAT_FRAME:AddMessage("> spell cast: " .. name,1,0,0)
 	local start, duration, enabled = GetSpellCooldown(name)
 	if start == nil or duration == nil or enabled == nil then
-		DEFAULT_CHAT_FRAME:AddMessage("> Borked " ,1,0,0)
+		-- DEFAULT_CHAT_FRAME:AddMessage("> Borked " ,1,0,0)
 	elseif enabled == 0 then
-		DEFAULT_CHAT_FRAME:AddMessage("> active " .. duration,1,0,0)
+		-- DEFAULT_CHAT_FRAME:AddMessage("> active " .. duration,1,0,0)
 	elseif (start > 0 and duration > 0) then
 		local expirationTime = start + duration
-		DEFAULT_CHAT_FRAME:AddMessage("> on cd " .. (expirationTime - GetTime()) ,1,0,0)
+		-- DEFAULT_CHAT_FRAME:AddMessage("> on cd " .. (expirationTime - GetTime()) ,1,0,0)
 		for _, bar in ipairs(cooldownBars) do
-			DEFAULT_CHAT_FRAME:AddMessage("> bl " .. #bar.colors,1,0,0)
+			-- DEFAULT_CHAT_FRAME:AddMessage("> bl " .. #bar.colors,1,0,0)
 			local color = bar.colors[math.max(1, math.min(#bar.colors, 3))]
 			bar:SetValue(expirationTime - GetTime())
 			bar:SetStatusBarColor(unpack(color))
 			bar:Show()
 		end
 	else
-		DEFAULT_CHAT_FRAME:AddMessage("> ready " ,1,0,0)
+		-- DEFAULT_CHAT_FRAME:AddMessage("> ready " ,1,0,0)
 	end
 end
 
@@ -298,10 +298,8 @@ function addon:CreateCooldownBar(spell, maxDuration, height)
 		bar.label:SetText(spellName)
 	end
 	
-	DEFAULT_CHAT_FRAME:AddMessage("> created " .. maxDuration ,1,0,0)
-	
-	-- bar.auraFunction = defaultAuraFunction
-	-- bar.auraFilter = (unit == "target" and "HARMFUL" or "HELPFUL") .. "|PLAYER"
+	bar.auraFunction = defaultAuraFunction
+	bar.auraFilter = (unit == "target" and "HARMFUL" or "HELPFUL") .. "|PLAYER"
 	
 	table.insert(cooldownBars, config.cooldownGrowUpwards and 1 or #cooldownBars + 1, bar)
 

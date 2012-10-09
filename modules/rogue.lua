@@ -4,6 +4,10 @@ if addon.playerClass == "ROGUE" then
 	local config = addon.config
 	local netherbladeSet = {29044, 29045, 29046, 29047, 29048}
 	
+	if config.debug then
+		DEFAULT_CHAT_FRAME:AddMessage("> Loaded " .. addon.playerClass .. " module" ,1,0,0)
+	end
+	
 	-- Slice and Dice
 	local sliceAndDiceDuration = function()
 		local maxValue = 36
@@ -104,14 +108,4 @@ if addon.playerClass == "ROGUE" then
 		vanishBar.colors = config.vanishColor
 		vanishBar.label:Hide()
 	end
-	
-	local feintCooldown = 10
-	local feintCooldownBar = addon:CreateCooldownBar(1966, feintCooldown, 12)
-	feintCooldownBar.color = config.feintColor
-	feintCooldownBar.label:Show()
-	
-	local vendettaCooldown = 120
-	local vendettaCooldownBar = addon:CreateCooldownBar(79140, vendettaCooldown, 12)
-	vendettaCooldownBar.color = config.vendettaColor
-	vendettaCooldownBar.label:Show()
 end

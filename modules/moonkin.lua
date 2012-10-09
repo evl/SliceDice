@@ -2,6 +2,10 @@ local addonName, addon = ...
 
 if addon.playerClass == "DRUID" then
 
+	if addon.config.debug then
+		DEFAULT_CHAT_FRAME:AddMessage("> Loaded " .. addon.playerClass .. " module" ,1,0,0)
+	end
+
 	-- Moonfire
 	local moonfireDuration = 14
 	local moonfireBar = addon:CreateBar("target", 8921, moonfireDuration, 14)
