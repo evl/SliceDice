@@ -1,3 +1,5 @@
+h1. evl's Slice Dice
+
 Provides duration bars for core class abilities.
 
 !http://i37.tinypic.com/wwdp1c.png!
@@ -9,26 +11,50 @@ Copy @config.lua.sample@ to @config.lua@ and modify as required.
 
 h2. Modules
 
-*Druid (Feral)*
+*Death Knight*
+* Blood Plague
+* Frost Fever
+* Horn of Winter
+
+*Druid (Feral)  (needs MoP testing)*
 * Savage Roar
 * Rip
 * Rake
 
 *Druid (Moonkin)*
-* Insect Swarm
-* Moonfire
+* Barkskin
+* Eclipse (buff and internal cooldown) (disabled temporarily for MoP)
+* Entangling Roots
 * Faerie Fire
-* Eclipse (buff and internal cooldown)
+* Moonfire
+
+*Paladin (needs MoP testing)*
+* Art of War
+* Sacred Duty
 
 *Rogue*
-* Slice and Dice
-* Hunger For Blood
+* Cloak of Shadows
+* Envenom
+* Feint
+* Garotte
+* Hunger For Blood (needs MoP testing)
+* Recuperate
+* Revealing Strike
 * Rupture
+* *Slice and Dice*
+* Vanish
+* Vendetta
 
 *Warrior*
-* Rend
 * Hamstring
+
+*Jousting (needs MoP testing, may be removed)*
 
 h2. Customizing modules
 
 Please see existing modules for in-depth examples.
+
+h2. Changelog
+
+* 2.0-beta1 - Mists of Pandaria Updates by Armagon, 2012-10-10
+* 1.6 - last released version by evl, 2010-10-15
