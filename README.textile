@@ -54,6 +54,10 @@ h2. Customizing modules
 
 Please see existing modules for in-depth examples.
 
+h2. License
+SliceDice is licensed under the BSD license.
+For details see the LICENSE file.
+
 h2. Changelog
 
 * 2.0-beta1 - Mists of Pandaria Updates by Armagon, 2012-10-10
