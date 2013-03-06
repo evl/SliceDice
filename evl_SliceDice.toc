@@ -12,5 +12,6 @@ modules\feral.lua
 modules\paladin.lua
 modules\rogue.lua
 modules\warrior.lua
+modules\monk.lua
 
 modules\joust.lua

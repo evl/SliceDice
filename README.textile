@@ -28,6 +28,17 @@ h2. Modules
 * Faerie Fire
 * Moonfire
 
+*Monk(Brewmaster)
+* Tiger Palm/Tiger Power
+* Shuffle
+* Vengeance
+* Momentum
+* Zen Sphere
+* Fortifying Brew
+* Guard
+* Avert Harm
+* Elusive Brew
+
 *Paladin (needs MoP testing)*
 * Art of War
 * Sacred Duty
@@ -61,6 +72,7 @@ For details see the LICENSE file.
 
 h2. Changelog
 
+* 2.5.2.1-beta1 - Add basic Monk support, 2013-06-03
 * 2.5.2.0 - Update to 5.2, 2013-06-03
 * 2.0-beta1 - Mists of Pandaria Updates by Armagon, 2012-10-10
 * 1.6 - last released version by evl, 2010-10-15
