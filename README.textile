@@ -55,6 +55,7 @@ h2. Customizing modules
 Please see existing modules for in-depth examples.
 
 h2. License
+
 SliceDice is licensed under the BSD license.
 For details see the LICENSE file.
 
